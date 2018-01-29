@@ -32,3 +32,27 @@ def backupDir(src,dest):
                 shutil.copy(file,dest)
 
 backupDir('.','/home/mbexegc2/Downloads/pytest/')
+
+def backupFiles(srcFiles,destFiles):
+    # srcFiles is a list of source files
+    # destFiles is a corresponding list of destination files
+    assert(len(srcFiles) == len(destFiles))
+
+    for src, dest in zip(srcFiles, destFiles):
+        # Check that src exists
+        assert(os.path.exists(os.path.abspath(src))), "Source file doesn't exist: %r" % src
+
+        # If dest dir doesn't exist, create it
+        destDir = os.path.dirname(os.path.abspath(dest))
+        if not os.path.exists(destDir):
+            os.makedirs(destDir)
+        # Confirm destination directory exists before copying
+        assert(os.path.exists(destDir))
+
+        # Check that destination file doesn't already exist
+        if not os.path.exists(os.path.abspath(dest)):
+            shutil.copyfile(src,dest)
+        else:
+            print('Destination file already exists: %r. File not copied.' % dest)
+
+backupFiles(['listfiles.py','README.md'],['/home/mbexegc2/Downloads/pytest/pythonfile.py','/home/mbexegc2/Downloads/pytest/dir/markdown.md'])
