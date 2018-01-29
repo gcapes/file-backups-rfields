@@ -54,5 +54,7 @@ def backupFiles(srcFiles,destFiles):
             shutil.copyfile(src,dest)
         else:
             print('Destination file already exists: %r. File not copied.' % dest)
+        # Confirm file has copied
+        assert(os.path.exists(dest)), "File failed to copy. Src: %r, Dest: %r" % (src, dest)
 
 backupFiles(['listfiles.py','README.md'],['/home/mbexegc2/Downloads/pytest/pythonfile.py','/home/mbexegc2/Downloads/pytest/dir/markdown.md'])
