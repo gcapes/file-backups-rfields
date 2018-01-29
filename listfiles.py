@@ -24,7 +24,11 @@ def backupDir(src,dest):
     assert(os.path.isdir(dest))
 
     for file in srcFiles:
+        # Don't copy hidden files
         if not file.startswith('.'):
-            shutil.copy(file,dest)
+            # Don't overwrite destination files
+            destFile = os.path.abspath(file)
+            if not os.path.exists(destFile):
+                shutil.copy(file,dest)
 
 backupDir('.','/home/mbexegc2/Downloads/pytest/')
