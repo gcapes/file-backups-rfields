@@ -40,7 +40,7 @@ def backupFiles(srcFiles,destFiles):
 
     for src, dest in zip(srcFiles, destFiles):
         # Check that src exists
-        assert(os.path.exists(os.path.abspath(src))), "Source file doesn't exist: %r" % src
+        assert(os.path.exists(src)), "Source file doesn't exist: %r" % src
 
         # If dest dir doesn't exist, create it
         destDir = os.path.dirname(os.path.abspath(dest))
@@ -50,7 +50,7 @@ def backupFiles(srcFiles,destFiles):
         assert(os.path.exists(destDir))
 
         # Check that destination file doesn't already exist
-        if not os.path.exists(os.path.abspath(dest)):
+        if not os.path.exists(dest):
             shutil.copyfile(src,dest)
         else:
             print('Destination file already exists: %r. File not copied.' % dest)
