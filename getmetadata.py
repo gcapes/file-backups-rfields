@@ -1,6 +1,7 @@
 import re
 
 def getmetadata(inputFile,keywordList):
+    '''Extract key info from (.idf and .ids) log files'''
     metadata = []
     with open(inputFile,'r', encoding='ascii',errors='ignore') as f:
         for line in f:
