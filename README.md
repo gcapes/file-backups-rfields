@@ -33,3 +33,5 @@ go into the file/directory name (read from file / manual prompt)
 	- firmware version
 	- technique
 - There may be multiple outputs per file
+    - How should I deal with this? Will they always contain the same info?
+    Just take the first complete set of information?
