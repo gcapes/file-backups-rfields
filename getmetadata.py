@@ -7,7 +7,7 @@ def getmetadata(inputFile,keywordList):
     with open(inputFile,'r', encoding='ascii',errors='ignore') as f:
         for line in f:
             for keyword in keywordList:
-                regex = keyword + '=(\w+)'
+                regex = keyword + '=(\w{2,})'
                 match = re.search(regex,line,re.IGNORECASE)
                 if match:
                     metadata.append(keyword + ' = ' + match.group(1))
