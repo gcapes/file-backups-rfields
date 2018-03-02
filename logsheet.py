@@ -33,3 +33,35 @@ def createlogsheet(dir):
     logsheetfile = os.path.join(dir,'logsheet.txt')
     utils.writelisttofile(logsheetinfo,logsheetfile)
 
+def copydirusinglogsheet(logsheet,dest):
+    """
+    Use info in logsheet to create back up in subfolder of dest.
+    :param logsheet: File containing key experimental info
+    :param dest: Directory to make backups in (subfolders created using logsheet info)
+    :return:
+    """
+    src = os.path.dirname(os.path.abspath(logsheet))
+
+    # Ensure back up is not within the source directory -- recursive back up would result.
+    dest = os.path.abspath(dest)
+    pathoverlap = os.path.commonpath([src,dest])
+    if src == pathoverlap:
+        raise ValueError('Back up directory is within source directory!\n'
+                         'Back up: %s\n'
+                         'Source: %s\n' % (dest, src))
+
+    # Read info from logsheet file
+    regex = ':\s*(\w+)'
+    backupdir = dest
+    with open(logsheet, 'r') as f:
+        for line in f:
+            match = re.search(regex, line)
+            dirname = match.group(1)
+            backupdir = os.path.join(backupdir, dirname)
+
+    # Create backup directory
+    # Create backup directory
+    utils.createdirfromfilepath(backupdir)
+
+    # Back up directory
+    shutil.copytree(src, backupdir)
