@@ -3,7 +3,12 @@ import os
 import utils
 
 def getmetadata(inputFile, keywordList):
-    '''Extract key info from (.idf and .ids) log files'''
+    '''
+    Extract key info from (.idf and .ids) log files.
+    :param inputFile: Log file to extract metadata from
+    :param keywordList: List of keywords to search for
+    :return:
+    '''
     metadata = []
     with open(inputFile, 'r', encoding='ascii', errors='ignore') as f:
         for keyword in keywordList:

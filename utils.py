@@ -5,7 +5,13 @@ General utility functions used in other modules
 '''
 
 def writelisttofile(data, filename):
-    '''Write contents of <data> into <filename>'''
+    '''
+    Write contents of <data> into <filename>
+    :param data: List containing data to write
+    :param filename: String containing a filename
+    :return:
+    '''
+
     # Check parent directory of file exists
     createdirfromfilepath(filename)
 
@@ -15,7 +21,11 @@ def writelisttofile(data, filename):
 
 
 def createdirfromfilepath(dest):
-    '''If dest dir doesn't exist, create it'''
+    '''
+    If dest dir doesn't exist, create it.
+    :param dest: Directory path (string).
+    :return:
+    '''
     destDir = os.path.dirname(os.path.abspath(dest))
     if not os.path.exists(destDir):
         os.makedirs(destDir)

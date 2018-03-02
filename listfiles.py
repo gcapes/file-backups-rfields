@@ -3,6 +3,11 @@ import shutil
 
 
 def getSrcFiles(path, allFiles):
+    '''
+    Get a list of source files.
+    :param path: Source directory
+    :param allFiles: List of files to append to
+    '''
     for fileOrDir in os.listdir(path):
         if not fileOrDir.startswith('.'):
             fullPath = os.path.join(path, fileOrDir)
@@ -14,6 +19,12 @@ def getSrcFiles(path, allFiles):
 
 
 def backupDir(src, dest):
+    '''
+    Copy files from src to dest.
+    :param src: Source directory
+    :param dest: Destination directory
+    :return: None
+    '''
     assert (os.path.isdir(src))
     srcDir = os.path.abspath(src)
     srcFiles = os.listdir(srcDir)
@@ -32,8 +43,12 @@ def backupDir(src, dest):
 
 
 def backupFiles(srcFiles, destFiles):
-    # srcFiles is a list of source files
-    # destFiles is a corresponding list of destination files
+    '''
+
+    :param srcFiles: List of source files
+    :param destFiles: Corresponding list of destination files
+    :return: None
+    '''
     assert (len(srcFiles) == len(destFiles))
 
     for src, dest in zip(srcFiles, destFiles):
