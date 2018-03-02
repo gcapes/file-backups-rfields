@@ -1,18 +1,24 @@
-# Structure of the problem
-- List files (recursively) in data directory
-- Extract any metadata
-- Copy to destination, using directory structure for metadata
+# Data backup for NGI Energy Lab
+
+## The task
+- Files are manually backed up to a shared drive
+	- This should be automated instead
+- Metadata is recorded by the instruments in a log file
+	- Extract key information and make it more accessible
+- Key information is recorded on a paper log sheet
+	- This needs to be associated with the backed up data
+	- Organise the files in a directory structure which reflects this
+
+## Requirements and questions
 - Confirm files have been copied
 - Delete files from original location
-
-# Questions
 - Is there just one directory (with subdirectories) for each PC?
-- Do the time stamp and permissions have to be preserved?
-	- Time stamps yes, permissions no.
+	- Yes
+- Preserve time stamps of files. Permissions not important.
 - Will all files be complete, or will any need appending to?
 	- Complete.
 
-# Update
+## Update
 - 5 pieces of information on a paper log sheet, which should
 go into the file/directory name (read from file / manual prompt)
 	- creator
