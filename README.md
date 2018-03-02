@@ -3,7 +3,7 @@
 ## The task
 - Files are manually backed up to a shared drive
 	- This should be automated instead
-- Metadata is recorded by the instruments in a log file
+- Metadata is recorded by the instruments in log files
 	- Extract key information and make it more accessible
 - Key information is recorded on a paper log sheet
 	- This needs to be associated with the backed up data
@@ -38,6 +38,8 @@ go into the file/directory name (read from file / manual prompt)
 	- software number
 	- firmware version
 	- technique
+
+## Questions
 - There may be multiple outputs per file
-    - How should I deal with this? Will they always contain the same info?
-    Just take the first complete set of information?
+    - I have just taken the first complete set of information.
+    - Do I need to check that every output within a file contains the same information?
