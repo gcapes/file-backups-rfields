@@ -5,9 +5,9 @@ def getmetadata(inputFile,keywordList):
     '''Extract key info from (.idf and .ids) log files'''
     metadata = []
     with open(inputFile,'r', encoding='ascii',errors='ignore') as f:
-        for line in f:
-            for keyword in keywordList:
-                regex = keyword + '=(\w{2,})'
+        for keyword in keywordList:
+            regex = keyword + '=(\w{2,})'
+            for line in f:
                 match = re.search(regex,line,re.IGNORECASE)
                 if match:
                     metadata.append(keyword + ' = ' + match.group(1))
