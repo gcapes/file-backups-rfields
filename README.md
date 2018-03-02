@@ -40,6 +40,9 @@ go into the file/directory name (read from file / manual prompt)
 	- technique
 
 ## Questions
-- There may be multiple outputs per file
-    - I have just taken the first complete set of information.
+- There may be multiple outputs per file -- I have just taken the first complete set of information.
     - Do I need to check that every output within a file contains the same information?
+- Do the filenames actually need to change?
+    - Or am I including all the information in the directory structure,
+    and then just copying all the files?
+- Should I get the date from a logfile rather than user input from the logsheet?
