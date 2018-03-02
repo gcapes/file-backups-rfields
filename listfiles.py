@@ -11,9 +11,6 @@ def getSrcFiles(path,allFiles):
                 allFiles.append(os.path.join(path,fileOrDir))
     return allFiles
             
-for x in getSrcFiles('../',[]):
-    print(x)
-
 def backupDir(src,dest):
     assert(os.path.isdir(src))
     srcDir = os.path.abspath(src)
@@ -30,8 +27,6 @@ def backupDir(src,dest):
             destFile = os.path.abspath(file)
             if not os.path.exists(destFile):
                 shutil.copy(file,dest)
-
-backupDir('.','/home/mbexegc2/Downloads/pytest/')
 
 def backupFiles(srcFiles,destFiles):
     # srcFiles is a list of source files
@@ -57,4 +52,7 @@ def backupFiles(srcFiles,destFiles):
         # Confirm file has copied
         assert(os.path.exists(dest)), "File failed to copy. Src: %r, Dest: %r" % (src, dest)
 
+for x in getSrcFiles('../',[]):
+    print(x)
+backupDir('.','/home/mbexegc2/Downloads/pytest/')
 backupFiles(['listfiles.py','README.md'],['/home/mbexegc2/Downloads/pytest/pythonfile.py','/home/mbexegc2/Downloads/pytest/dir/markdown.md'])
