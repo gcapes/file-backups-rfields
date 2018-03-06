@@ -82,11 +82,9 @@ def findlogsheets(basedir, logfile):
     # Identify which level should contain the logsheet.txt file (same as the *.idf, *.ids files)
     for root, subdirs, files in dirinfo:
         for file in files:
-            if file.endswith(('.idf','.ids')):
-                # This is the level in which to look for the logfile
-                if logfile in files:
-                    found.append(root)
-                    break
+            if file.endswith(('.idf','.ids')) and logfile in files:
+                found.append(root)
+                break
         else:
             missing.append(root)
 
