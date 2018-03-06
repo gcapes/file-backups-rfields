@@ -36,8 +36,8 @@ def createlogsheet(dir):
 def copydirusinglogsheet(logsheet,dest):
     """
     Use info in logsheet to create back up in subfolder of dest.
-    :param logsheet: File containing key experimental info
-    :param dest: Directory to make backups in (subfolders created using logsheet info)
+    :param logsheet: Path to file containing key experimental info
+    :param dest: Path to directory to use for backups (subfolders created using info in logsheet)
     :return:
     """
     src = os.path.dirname(os.path.abspath(logsheet))
