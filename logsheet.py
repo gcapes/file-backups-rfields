@@ -65,3 +65,38 @@ def copydirusinglogsheet(logsheet,dest):
 
     # Back up directory
     shutil.copytree(src, backupdir)
+
+def findlogsheets(basedir, logfile):
+    '''
+    Scan a directory to identify (missing and present) logsheets.
+    :param basedir: Directory to scan (string)
+    :param logfile: Name of log file to search for
+    :return: foundornot: List of lists [[dirs with logsheets],[dirs missing logsheets]]
+    '''
+    # List directories recursively
+    dirinfo = os.walk(basedir)
+
+    found   = []
+    missing = []
+
+    # Identify which level should contain the logsheet.txt file (same as the *.idf, *.ids files)
+    for root, subdirs, files in dirinfo:
+        for file in files:
+            if file.endswith(('.idf','.ids')):
+                # This is the level in which to look for the logfile
+                if logfile in files:
+                    found.append(root)
+                    break
+        else:
+            missing.append(root)
+
+    foundornot = [found, missing]
+
+    return foundornot
+
+# Testing
+createlogsheet('/home/mbexegc2/Downloads/test')
+copydirusinglogsheet('logsheet.txt','/home/mbexegc2/backup')
+logsheetlog = findlogsheets('/home/mbexegc2/Downloads', 'logsheet.txt')
+print('With logsheet: ',logsheetlog[0])
+print('Without logsheet: ',logsheetlog[1])
