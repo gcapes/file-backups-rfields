@@ -1,12 +1,13 @@
 '''
 Prompt user for info on paper logsheet and write to file.
-Also read logsheet.info file in order to organise directories for backup.
+Also read logsheet.txt file in order to organise directories for backup.
 '''
-
-# Check for existence of logsheet.info file.
-# If present, read the file and copy the directory.
-# Otherwise report file missing.
-# Prompt user for information where logsheet.txt is missing.
+# Intended workflow:
+	# Check for existence of logsheet.txt file.
+	# If present, read the file and copy the directory.
+		# Save successful copies to a log file.
+	# Otherwise report directories where logfile.txt missing.
+		# Prompt user to create missing logsheet.txt files
 
 import utils
 import os
@@ -59,7 +60,6 @@ def copydirusinglogsheet(logsheet,dest):
             dirname = match.group(1)
             backupdir = os.path.join(backupdir, dirname)
 
-    # Create backup directory
     # Create backup directory
     utils.createdirfromfilepath(backupdir)
 

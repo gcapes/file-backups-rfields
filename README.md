@@ -44,5 +44,16 @@ go into the file/directory name (read from file / manual prompt)
     - Do I need to check that every output within a file contains the same information?
 - Do the filenames actually need to change?
     - Or am I including all the information in the directory structure,
-    and then just copying all the files?
+    and then just copying all the files? That's what the code currently does.
 - Should I get the date from a logfile rather than user input from the logsheet?
+    - It would probably be more robust, and would ensure the format is consistent.
+
+## Usage
+### Back up directory
+- scan recursively for `logfile.txt` and where present, back up that directory
+- write logfile reporting missing logfiles e.g. missinglogfiles.txt
+- write logfile reporting successful copies
+- confirm deletion of backed up directories
+
+### Create missing logsheets
+- after back up, or manually, prompt user for information required for missing logsheets
