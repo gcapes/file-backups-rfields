@@ -25,7 +25,7 @@ def createlogsheet(dir):
     # Confirm that logsheet.info is indeed missing from dir
     logsheetfile = os.path.join(dir,'logsheet.txt')
     if os.path.exists(logsheetfile):
-        overwrite = input('File already exists: ' + logsheetfile + '. Overwrite? (Y/N)\n')
+        overwrite = input('File already exists: ' + logsheetfile + '. Overwrite? (Y/N): ')
         if overwrite.lower() == 'n':
             return None
     creator = input('Creator: ')
