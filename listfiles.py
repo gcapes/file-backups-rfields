@@ -44,7 +44,8 @@ def backupDir(src, dest):
 
 def backupFiles(srcFiles, destFiles):
     '''
-
+    Take a list of source files, and copy to corresponding list of destination files.
+    Files may or may not be renamed in the process, depending on the contents of destFiles.
     :param srcFiles: List of source files
     :param destFiles: Corresponding list of destination files
     :return: None
