@@ -20,7 +20,9 @@ def createlogsheet(dir):
     :param dir: Where the file should be saved.
     :return:
     '''
-    # assert that logsheet.info is indeed missing from dir
+
+    assert os.path.exists(dir), "Directory doesn't exist: %s." % dir
+    # Confirm that logsheet.info is indeed missing from dir
     logsheetfile = os.path.join(dir,'logsheet.txt')
     if os.path.exists(logsheetfile):
         overwrite = input('File already exists: ' + logsheetfile + '. Overwrite? (Y/N)\n')
