@@ -121,10 +121,3 @@ def getdatefromdatafile(dir):
                 return date
         else:
             raise ValueError('Date not found in .idf or .ids file')
-
-# Testing
-createlogsheet('/home/mbexegc2/Downloads/test')
-copydirusinglogsheet('logsheet.txt','/home/mbexegc2/backup')
-logsheetlog = findlogsheets('/home/mbexegc2/Downloads', 'logsheet.txt')
-print('With logsheet: ',logsheetlog[0])
-print('Without logsheet: ',logsheetlog[1])
