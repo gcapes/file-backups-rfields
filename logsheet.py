@@ -92,6 +92,33 @@ def findlogsheets(basedir, logfile):
 
     return foundornot
 
+def getdatefromdatafile(dir):
+    """
+    Scan .idf or .ids file for date, to be used in logsheet.txt
+
+    :param dir: Directory to search
+    :return: date
+    """
+    dirlisting = os.listdir(dir)
+    for file in dirlisting:
+        if file.endswith(('.idf','.ids')):
+            break
+    else:
+        raise Error('File not found. Looking for a .idf or .ids file in %s.' % dir)
+
+    regex = 'starttime=([0-9]{1,2})/([0-9]{1,2})/([0-9]{4})'
+    with open(file, 'r', encoding='ascii', errors='ignore') as f:
+        for line in f:
+            match = re.search(regex, line)
+            if match:
+                year  = match.group(3)
+                month = match.group(2)
+                day   = match.group(1)
+                date = year + month + day
+                return date
+        else:
+            raise ValueError('Date not found in .idf or .ids file')
+
 # Testing
 createlogsheet('/home/mbexegc2/Downloads/test')
 copydirusinglogsheet('logsheet.txt','/home/mbexegc2/backup')
