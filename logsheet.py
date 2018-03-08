@@ -28,7 +28,8 @@ def createlogsheet(dir):
             return None
     creator = input('Creator: ')
     experimentid = input('Experiment ID: ')
-    date = input('Date: ') # Shouldn't I be able to read this from instrument log file?
+    date = getdatefromdatafile(dir)
+    assert date, 'Date not found in .idf or .ids file!'
     generalid = input('General ID: ')
     logsheetinfo = ['Creator: ' + creator, 'Experiment ID: ' + experimentid, 'Date: ' + date, 'General ID: ' + generalid]
     logsheetfile = os.path.join(dir,'logsheet.txt')
