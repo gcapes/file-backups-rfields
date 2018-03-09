@@ -37,13 +37,15 @@ def createlogsheet(dir):
     logsheetfile = os.path.join(dir,'logsheet.txt')
     utils.writelisttofile(logsheetinfo,logsheetfile)
 
-def copydirusinglogsheet(logsheet,dest):
+def copydirusinglogsheet(logsheet, dest):
     """
     Use info in logsheet to create back up in subfolder of dest.
     :param logsheet: Path to file containing key experimental info
     :param dest: Path to directory to use for backups (subfolders created using info in logsheet)
     :return:
     """
+    assert os.path.exists(logsheet), "File doesn't exist: %s" % logsheet
+
     src = os.path.dirname(os.path.abspath(logsheet))
 
     # Ensure back up is not within the source directory -- recursive back up would result.
@@ -53,6 +55,11 @@ def copydirusinglogsheet(logsheet,dest):
         raise ValueError('Back up directory is within source directory!\n'
                          'Back up: %s\n'
                          'Source: %s\n' % (dest, src))
+    
+    # Ensure back up directory exists, rather than creating a directory
+    # from a path which could contain typos.
+    assert os.path.exists(dest), "Destination directory doesn't exist: % s\n\
+        Please create it first then try again." % dest
 
     # Read info from logsheet file
     regex = ':\s*(.+)'
@@ -62,9 +69,6 @@ def copydirusinglogsheet(logsheet,dest):
             match = re.search(regex, line)
             dirname = match.group(1)
             backupdir = os.path.join(backupdir, dirname)
-
-    # Create backup directory
-    utils.createdirfromfilepath(backupdir)
 
     # Back up directory
     shutil.copytree(src, backupdir)
@@ -76,6 +80,9 @@ def findlogsheets(basedir, logfile):
     :param logfile: Name of log file to search for
     :return: foundornot: List of lists [[dirs with logsheets],[dirs missing logsheets]]
     '''
+
+    assert os.path.exists(basedir), "Directory doesn't exist: %s" % basedir
+
     # List directories recursively
     dirinfo = os.walk(basedir)
 
@@ -102,6 +109,9 @@ def getdatefromdatafile(dir):
     :param dir: Directory to search
     :return: date
     """
+
+    assert os.path.exists(dir), "Directory doesn't exist: %s" % dir
+
     dirlisting = os.listdir(dir)
     for file in dirlisting:
         if file.endswith(('.idf','.ids')):
