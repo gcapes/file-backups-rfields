@@ -52,7 +52,7 @@ def copydirusinglogsheet(logsheet, dest):
     dest = os.path.abspath(dest)
     pathoverlap = os.path.commonpath([src,dest])
     if src == pathoverlap:
-        raise ValueError('Back up directory is within source directory!\n'
+        raise NameError('Back up directory is within source directory!\n'
                          'Back up: %s\n'
                          'Source: %s\n' % (dest, src))
     
@@ -117,7 +117,7 @@ def getdatefromdatafile(dir):
         if file.endswith(('.idf','.ids')):
             break
     else:
-        raise Error('File not found. Looking for a .idf or .ids file in %s.' % dir)
+        raise NameError('File not found. Looking for a .idf or .ids file in %s.' % dir)
 
     regex = 'starttime=([0-9]{1,2})/([0-9]{1,2})/([0-9]{4})'
     with open(file, 'r', encoding='ascii', errors='ignore') as f:
