@@ -39,7 +39,7 @@ go into the file/directory name (read from file / manual prompt)
 	- firmware version
 	- technique
 
-## Questions
+## Questions around assumptions I have made
 - There may be multiple outputs per file -- I have just taken the first complete set of information.
     - Do I need to check that every output within a file contains the same information?
 - Do the filenames actually need to change?
@@ -47,6 +47,10 @@ go into the file/directory name (read from file / manual prompt)
     and then just copying all the files? That's what the code currently does.
 - Should I get the date from a logfile rather than user input from the logsheet?
     - It would probably be more robust, and would ensure the format is consistent.
+- I am assuming that `logfile.txt` will be at the same level as an `.idf` or `.ids` file,
+and that at least one of these files will be present for all experiments.
+If a directory doesn't contain an `.idf` or `.ids` file, it is either a sub-directory or
+otherwise not an experimental directory.
 
 ## Usage
 ### Back up directory
