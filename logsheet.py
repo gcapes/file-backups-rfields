@@ -55,7 +55,7 @@ def copydirusinglogsheet(logsheet,dest):
                          'Source: %s\n' % (dest, src))
 
     # Read info from logsheet file
-    regex = ':\s*(\w+)'
+    regex = ':\s*(.+)'
     backupdir = dest
     with open(logsheet, 'r') as f:
         for line in f:
