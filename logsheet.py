@@ -74,6 +74,8 @@ def copydirusinglogsheet(logsheet, dest):
     # But only if it hasn't already been backed up.
     if not os.path.exists(backupdir):
         shutil.copytree(src, backupdir)
+    
+    return src, backupdir
 
 def findlogsheets(basedir, logfile):
     '''
