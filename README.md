@@ -54,10 +54,12 @@ otherwise not an experimental directory.
 
 ## Usage
 ### Back up directory
-- scan recursively for `logfile.txt` and where present, back up that directory
-- write logfile reporting missing logfiles e.g. missinglogfiles.txt
+- scan recursively for `logsheet.txt` and where present, back up that directory
+    - first check that it hasn't already been backed up
+- write logfile reporting missing logfiles e.g. `missinglogfiles.txt`
 - write logfile reporting successful copies
 - confirm deletion of backed up directories
+    - or have this as a manual step later?
 
 ### Create missing logsheets
 - after back up, or manually, prompt user for information required for missing logsheets
