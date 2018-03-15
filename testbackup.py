@@ -3,6 +3,7 @@ import logsheet as ls
 import utils
 import os
 import datetime
+import getmetadata as gm
 
 # Define variables
 datadir      = '/home/mbexegc2/Downloads'
@@ -10,12 +11,12 @@ backupdir    = '/home/mbexegc2/backup'
 missinglog   = os.path.join(datadir,'missinglogsheets.txt')
 logsheetname = 'logsheet.txt'
 backuplog    = os.path.join(datadir, 'backuplog.txt')
+keywords     = ['Serialnumber', 'Software', 'Firmware', 'Technique']
+ext          = ('.ids','.idf')
 
 # Confirm paths exist
 assert os.path.exists(datadir), "Source directory not found: %s" % datadir
 assert os.path.exists(backupdir), "Back up directory not found: %s" % backupdir
-
-# Create README files from .idf and .ids data files
 
 logsheetreport = ls.findlogsheets('/home/gerard/Downloads', logsheetname)
 
@@ -43,9 +44,12 @@ if needbackup:
 
     with open(backuplog, 'a') as f:
         for dir in needbackup:
+            # Create README files from .idf and .ids data files
+            gm.writereadme(dir, ext, keywords)
+
+            # Write log file to report src and dest directories and time copied
             logsheet = os.path.join(dir, logsheetname)
             src, dest = ls.copydirusinglogsheet(logsheet, backupdir)
-            # Write log file to report src and dest directories and time copied
             now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             f.write(now + '\t' + src + '\t' + dest + '\n')
     
