@@ -9,6 +9,8 @@ def getmetadata(inputFile, keywordList):
     :param keywordList: List of keywords to search for
     :return:
     '''
+    assert os.path.exists(inputFile), "File not found: %s" % inputFile
+    
     metadata = []
     with open(inputFile, 'r', encoding='ascii', errors='ignore') as f:
         for keyword in keywordList:
