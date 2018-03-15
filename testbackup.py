@@ -11,6 +11,10 @@ missinglog   = os.path.join(datadir,'missinglogsheets.txt')
 logsheetname = 'logsheet.txt'
 backuplog    = os.path.join(datadir, 'backuplog.txt')
 
+# Confirm paths exist
+assert os.path.exists(datadir), "Source directory not found: %s" % datadir
+assert os.path.exists(backupdir), "Back up directory not found: %s" % backupdir
+
 # Create README files from .idf and .ids data files
 
 logsheetreport = ls.findlogsheets('/home/mbexegc2/Downloads', logsheetname)
