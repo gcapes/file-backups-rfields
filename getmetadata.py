@@ -52,20 +52,3 @@ def writereadme(dir, ext, keywords):
     data = getmetadata(file, keywords)
     readme = os.path.join(dir, 'README.txt')
     utils.writelisttofile(data, readme)
-
-# Testing
-CCDfile = 'Ivium Datafile - CCCD Example.idf'
-CVfile = 'Ivium Datafile - CV Example.ids'
-EISfile = 'Ivium Datafile - EIS Example.idf'
-keywords = ['Serialnumber', 'Software', 'Firmware', 'Technique']
-
-CCDlist = getmetadata(CCDfile, keywords)
-CVlist = getmetadata(CVfile, keywords)
-EISlist = getmetadata(EISfile, keywords)
-
-CCDReadmeFile = os.path.join('output', 'CCD', 'README.txt')
-CVReadmeFile = os.path.join('output', 'CV', 'README.txt')
-EISReadmeFile = os.path.join('output', 'EIS', 'README.txt')
-utils.writelisttofile(CCDlist, CCDReadmeFile)
-utils.writelisttofile(CVlist, CVReadmeFile)
-utils.writelisttofile(EISlist, EISReadmeFile)
