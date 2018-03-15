@@ -9,7 +9,6 @@ datadir      = '/home/mbexegc2/Downloads'
 backupdir    = '/home/mbexegc2/backup'
 missinglog   = os.path.join(datadir,'missinglogsheets.txt')
 logsheetname = 'logsheet.txt'
-tobecopied   = os.path.join(datadir, 'dirstobecopied.txt')
 backuplog    = os.path.join(datadir, 'backuplog.txt')
 
 # Create README files from .idf and .ids data files
@@ -20,8 +19,6 @@ dirswithlogsheet    = logsheetreport[0]
 dirsmissinglogsheet = logsheetreport[1]
 
 utils.writelisttofile(dirsmissinglogsheet, missinglog)
-utils.writelisttofile(dirswithlogsheet, tobecopied)
-
 
 with open(backuplog, 'w') as f:
     f.write("Time\tSource directory\tBack up directory\n")
