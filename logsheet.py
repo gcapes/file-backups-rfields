@@ -101,6 +101,7 @@ def findlogsheets(basedir, logfile):
                     found.append(root)
                 else:
                     missing.append(root)
+                break
 
     foundornot = [found, missing]
 
