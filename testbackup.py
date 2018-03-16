@@ -26,16 +26,14 @@ dirsmissinglogsheet = logsheetreport[1]
 utils.writelisttofile(dirsmissinglogsheet, missinglog)
 
 # Confirm directories haven't already been backed up
+needbackup = dirswithlogsheet
 if os.path.exists(backuplog):
-    needbackup = dirswithlogsheet
     with open(backuplog, 'r') as f:
         for i, line in enumerate(f):
             if i > 0: # skip header row
                 srcdir = line.split("\t")[1]
                 if srcdir in dirswithlogsheet:
                     needbackup.remove(srcdir)
-else:
-    needbackup = dirswithlogsheet
 
 if needbackup:
     if not os.path.exists(backuplog):
