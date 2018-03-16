@@ -6,8 +6,8 @@ import datetime
 import getmetadata as gm
 
 # Define variables
-datadir      = '/home/mbexegc2/Downloads'
-backupdir    = '/home/mbexegc2/backup'
+datadir      = r"C:\IviumSoft - latest version\data"
+backupdir    = r"C:\Users\Manchester_Ivium_1\Downloads\backup"
 missinglog   = os.path.join(datadir,'missinglogsheets.txt')
 logsheetname = 'logsheet.txt'
 backuplog    = os.path.join(datadir, 'backuplog.txt')
@@ -18,7 +18,7 @@ ext          = ('.ids','.idf')
 assert os.path.exists(datadir), "Source directory not found: %s" % datadir
 assert os.path.exists(backupdir), "Back up directory not found: %s" % backupdir
 
-logsheetreport = ls.findlogsheets('/home/gerard/Downloads', logsheetname)
+logsheetreport = ls.findlogsheets(datadir, logsheetname)
 
 dirswithlogsheet    = logsheetreport[0]
 dirsmissinglogsheet = logsheetreport[1]
