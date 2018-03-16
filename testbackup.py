@@ -50,6 +50,12 @@ if needbackup:
             src, dest = ls.copydirusinglogsheet(logsheet, backupdir)
             now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             f.write(now + '\t' + src + '\t' + dest + '\n')
+            print("Directory copied: %s" % dir)
+    print("Back up complete. See log file for details: %s" % backuplog)
+    print("Directories missing logsheets were not backed up. See : %s" % missinglog)
+else:
+    print("No directories were copied.")
+    print("See log file for missing logsheets: %s" % missinglog)
     
 # Check that directories have been backed up
     # Check destination directories and files exist, and that the file sizes are the same.
