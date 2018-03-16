@@ -50,7 +50,8 @@ def writereadme(dir, ext, keywords):
     """
     assert os.path.exists(dir), "Directory doesn't exist: %s" % dir
     
-    file = getdatafile(dir, ext)
+    filename = getdatafile(dir, ext)
+    file = os.path.join(dir, filename)
     data = getmetadata(file, keywords)
     readme = os.path.join(dir, 'README.txt')
     utils.writelisttofile(data, readme)
