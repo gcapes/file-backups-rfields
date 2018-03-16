@@ -124,6 +124,7 @@ def getdatefromdatafile(dir):
     else:
         raise NameError('File not found. Looking for a .idf or .ids file in %s.' % dir)
 
+    file = os.path.join(dir, file)
     regex = 'starttime=([0-9]{1,2})/([0-9]{1,2})/([0-9]{4})'
     with open(file, 'r', encoding='ascii', errors='ignore') as f:
         for line in f:
@@ -135,4 +136,4 @@ def getdatefromdatafile(dir):
                 date = year + month + day
                 return date
         else:
-            raise ValueError('Date not found in .idf or .ids file')
+            raise ValueError('Date not found in file: %s' % file)
