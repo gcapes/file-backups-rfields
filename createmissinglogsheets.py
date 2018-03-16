@@ -4,7 +4,7 @@ import os
 
 missinglogs = "/home/mbexegc2/Downloads/missinglogsheets.txt"
 
-assert os.path.exists(missinglogs), "File not found: %s" % missinglogs
+assert os.path.isfile(missinglogs), "File not found: %s" % missinglogs
 
 with open(missinglogs, 'r') as f:
     for line in f:
