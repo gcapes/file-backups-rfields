@@ -28,6 +28,7 @@ def createlogsheet(dir):
         overwrite = input('File already exists: ' + logsheetfile + '. Overwrite? (Y/N): ')
         if overwrite.lower() == 'n':
             return None
+    print("Creating logsheet: %s" % logsheetfile)
     creator = input('Creator: ')
     experimentid = input('Experiment ID: ')
     date = getdatefromdatafile(dir)
