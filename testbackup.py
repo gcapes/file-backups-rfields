@@ -27,13 +27,13 @@ utils.writelisttofile(dirsmissinglogsheet, missinglog)
 
 # Confirm directories haven't already been backed up
 if os.path.exists(backuplog):
-    needbackup = []
+    needbackup = dirswithlogsheet
     with open(backuplog, 'r') as f:
         for i, line in enumerate(f):
             if i > 0: # skip header row
                 srcdir = line.split("\t")[1]
-                if not srcdir in dirswithlogsheet:
-                    needbackup.append(srcdir)
+                if srcdir in dirswithlogsheet:
+                    needbackup.remove(srcdir)
 else:
     needbackup = dirswithlogsheet
 
