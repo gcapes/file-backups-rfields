@@ -52,7 +52,7 @@ if needbackup:
             f.write(now + '\t' + src + '\t' + dest + '\n')
             print("Directory copied: %s" % dir)
     print("Back up complete. See log file for details: %s" % backuplog)
-    print("Directories missing logsheets were not backed up. See : %s" % missinglog)
+    print("Any directories missing logsheets were not backed up. See: %s" % missinglog)
 else:
     print("No directories were copied.")
     print("See log file for missing logsheets: %s" % missinglog)
