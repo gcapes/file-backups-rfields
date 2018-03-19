@@ -2,12 +2,6 @@
 Prompt user for info on paper logsheet and write to file.
 Also read logsheet.txt file in order to organise directories for backup.
 '''
-# Intended workflow:
-	# Check for existence of logsheet.txt file.
-	# If present, read the file and copy the directory.
-		# Save successful copies to a log file.
-	# Otherwise report directories where logfile.txt missing.
-		# Prompt user to create missing logsheet.txt files
 
 import utils
 import os

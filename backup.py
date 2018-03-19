@@ -1,4 +1,4 @@
-# Test code during development.
+"""Back up files from Ivium machines"""
 import logsheet as ls
 import utils
 import os
