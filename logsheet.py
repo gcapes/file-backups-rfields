@@ -28,15 +28,28 @@ def createlogsheet(dir):
         overwrite = input('File already exists: ' + logsheetfile + '. Overwrite? (Y/N): ')
         if overwrite.lower() == 'n':
             return None
-    print("Creating logsheet: %s" % logsheetfile)
-    creator = input('Creator: ')
-    experimentid = input('Experiment ID: ')
-    date = getdatefromdatafile(dir)
-    assert date, 'Date not found in .idf or .ids file!'
-    generalid = input('General ID: ')
-    logsheetinfo = ['Creator: ' + creator, 'Experiment ID: ' + experimentid, 'Date: ' + date, 'General ID: ' + generalid]
-    logsheetfile = os.path.join(dir,'logsheet.txt')
-    utils.writelisttofile(logsheetinfo,logsheetfile)
+
+    ignorefile = os.path.join(dir, ".backupignore")
+    if os.path.isfile(ignorefile):
+        print("Ignored directory: %s" % dir)
+        return None
+    else:
+        print("Create logsheet for directory? %s" % dir)
+        action = input("Y - Yes\nN - Skip this time\nI - Ignore directory, and don't ask again\nAction: ")
+
+        if action.lower().strip() == "y":
+            creator = input('Creator: ')
+            experimentid = input('Experiment ID: ')
+            date = getdatefromdatafile(dir)
+            assert date, 'Date not found in .idf or .ids file!'
+            generalid = input('General ID: ')
+            logsheetinfo = ['Creator: ' + creator, 'Experiment ID: ' + experimentid, 'Date: ' + date, 'General ID: ' + generalid]
+            logsheetfile = os.path.join(dir,'logsheet.txt')
+            utils.writelisttofile(logsheetinfo,logsheetfile)
+        elif action.lower().strip() == "i":
+            open(ignorefile, 'w').close()
+            print("Directory will be ignored: %s" % dir)
+
 
 def copydirusinglogsheet(logsheet, dest):
     """
