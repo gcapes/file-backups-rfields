@@ -6,8 +6,8 @@ import datetime
 import getmetadata as gm
 
 # Define variables
-datadir      = r"C:\IviumSoft - latest version\data"
-backupdir    = r"C:\Users\Manchester_Ivium_1\Downloads\backup"
+datadir      = r"/home/mbexegc2/Downloads/"
+backupdir    = r"/home/mbexegc2/backup"
 missinglog   = os.path.join(datadir,'missinglogsheets.txt')
 logsheetname = 'logsheet.txt'
 backuplog    = os.path.join(datadir, 'backuplog.txt')
@@ -56,8 +56,3 @@ if needbackup:
 else:
     print("No directories were copied.")
     print("See log file for missing logsheets: %s" % missinglog)
-    
-# Check that directories have been backed up
-    # Check destination directories and files exist, and that the file sizes are the same.
-
-# Read missinglogsheets.txt file in order to create new logsheets.
