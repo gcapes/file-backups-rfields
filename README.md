@@ -44,6 +44,8 @@ otherwise not an experimental directory.
 	- experiment ID
 	- general ID
 
-### Delete backed up directories (TODO)
-- Either run a script manually, or prompt user after back up is complete
-- Double check that files have been copied before deleting from source directory
+### Delete backed up directories using `deleterawdata.py`
+- Double checks that files have been copied before deleting from source directory
+- Successful deletions reported at the prompt and in `deleteddirslog.txt`
+- Problems deleting directories are reported at the prompt and in `deleteerrorlog.txt`
+- Both log files are created in the data source directory
