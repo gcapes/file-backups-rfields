@@ -34,13 +34,15 @@ def createdirfromfilepath(dest):
     # Confirm destination directory exists before copying
     assert (os.path.exists(destDir))
     
-def deletebackedupdir(backupdir, srcdir):
+def deletebackedupdir(srcdir, backupdir):
     """
     Check that back up has completed successfully,
     before deleting source directory.
-    :param: backupdir: directory containing back up of srcdir
+
     :param: srcdir: data directory being backed up
-    :return:
+    :param: backupdir: directory containing back up of srcdir
+    :return: True if directory was deleted,
+        otherwise False if directory wasn't deleted
     """
     assert os.path.isdir(backupdir), "Directory not found: %s" % backupdir
     assert os.path.isdir(srcdir),  "Directory not found: %s" % srcdir
@@ -50,8 +52,11 @@ def deletebackedupdir(backupdir, srcdir):
         print("Deleting directory: %s" % srcdir)
         shutil.rmtree(srcdir)
         assert not os.path.exists(srcdir), "Directory removal failed: %s" % srcdir
-    
-    return None
+        return True
+    else:
+        print("Directory not deleted: %s" % srcdir)
+        print("Source and backup are different: %s, %s" % (srcdir, backupdir))
+        return False
     
 def equaldirs(dir1, dir2):
     """
