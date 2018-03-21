@@ -1,6 +1,7 @@
 import os
 import shutil
 import filecmp
+import re
 
 '''
 General utility functions used in other modules
@@ -87,3 +88,30 @@ def equaldirs(dir1, dir2):
         if not equaldirs(newdir1, newdir2):
             return False
     return True
+
+def loadpaths(pathfile, datapath, backuppath):
+    """
+    Load a text file containing data directory
+    and back up directory paths.
+    
+    :param: pathfile: File containing the paths.
+                This should contain two lines:
+                    data: path/to/data
+                    backup: path/to/backup
+    :return: (datadir, backupdir) The data and back up directory paths.
+    """
+    
+    assert os.path.isfile(pathfile), "File not found: %s" % pathfile
+    
+    regex = "(\w+):\s*(.+)"
+    pathdict = {}
+    with open(pathfile, 'r') as f:
+        for i, line in enumerate(f):
+            # File should contain only two lines. Ignore accidental extra lines.
+            if i < 2:
+                match = re.match(regex,line)
+                assert match, "Search pattern not found in %s" % pathfile
+                pathtype = match[1].strip()
+                path = match[2].strip()
+                pathdict[pathtype] = path
+    return (pathdict.get(datapath), pathdict.get(backuppath))

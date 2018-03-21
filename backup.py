@@ -6,8 +6,7 @@ import datetime
 import getmetadata as gm
 
 # Define variables
-datadir      = r"/home/mbexegc2/Downloads/"
-backupdir    = r"/home/mbexegc2/backup"
+datadir, backupdir = utils.loadpaths("paths.txt", 'data', 'backup')
 missinglog   = os.path.join(datadir,'missinglogsheets.txt')
 logsheetname = 'logsheet.txt'
 backuplog    = os.path.join(datadir, 'backuplog.txt')

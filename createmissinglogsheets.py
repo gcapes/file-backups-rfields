@@ -1,8 +1,9 @@
-# Prompt user for information on all missing logfiles
+"""Prompt user for information on all missing logfiles"""
 import logsheet as ls
 import os
+import utils
 
-datadir     = r"C:\IviumSoft - latest version\data"
+datadir     = utils.loadpaths("paths.txt", 'data', 'backup')[0]
 missinglogs = "missinglogsheets.txt"
 missinglogs = os.path.join(datadir, missinglogs)
 
