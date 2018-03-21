@@ -49,3 +49,7 @@ otherwise not an experimental directory.
 - Successful deletions reported at the prompt and in `deleteddirslog.txt`
 - Problems deleting directories are reported at the prompt and in `deleteerrorlog.txt`
 - Both log files are created in the data source directory
+
+### Setting 'data' and 'backup' directories
+- Edit the file `paths.txt` in the root of this repository
+- `backup.py` and `createmissinglogsheets.py` will read paths from this file
