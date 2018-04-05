@@ -122,8 +122,8 @@ def loadpaths(pathfile, src, dest):
     
     # Confirm paths exist
     assert len(datadir), "Source directory not set.\nEdit path file: %s" % pathfile
-    assert os.path.exists(datadir), "Source directory not found: %s" % datadir
     assert len(backupdir), "Back up directory not set.\nEdit path file: %s" % pathfile
+    assert os.path.exists(datadir), "Source directory not found: %s" % datadir
     assert os.path.exists(backupdir), "Back up directory not found: %s" % backupdir
     
     # Confirm paths are different
