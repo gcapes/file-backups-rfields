@@ -89,7 +89,7 @@ def equaldirs(dir1, dir2):
             return False
     return True
 
-def loadpaths(pathfile, datapath, backuppath):
+def loadpaths(pathfile, src, dest):
     """
     Load a text file containing data directory
     and back up directory paths.
@@ -98,6 +98,8 @@ def loadpaths(pathfile, datapath, backuppath):
                 This should contain two lines:
                     data: path/to/data
                     backup: path/to/backup
+    :param: src: Key word in the path file labelling the source path
+    :param: dest: Key word in the path file labelling the back up path
     :return: (datadir, backupdir) The data and back up directory paths.
     """
     
@@ -114,8 +116,9 @@ def loadpaths(pathfile, datapath, backuppath):
                 pathtype = match[1].strip()
                 path = match[2].strip()
                 pathdict[pathtype] = path
-    datadir = pathdict.get(datapath)
-    backupdir = pathdict.get(backuppath)
+
+    datadir   = pathdict.get(src)
+    backupdir = pathdict.get(dest)
     
     # Confirm paths exist
     assert len(datadir), "Source directory not set.\nEdit path file: %s" % pathfile
