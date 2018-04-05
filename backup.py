@@ -57,4 +57,5 @@ if needbackup:
     print("Any directories missing logsheets were not backed up. See: %s" % missinglog)
 else:
     print("No directories were copied.")
+    print("See log file for directories already backed up: %s" % backuplog)
     print("See log file for missing logsheets: %s" % missinglog)
