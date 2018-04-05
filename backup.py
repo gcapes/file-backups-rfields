@@ -6,7 +6,8 @@ import datetime
 import getmetadata as gm
 
 # Define variables
-datadir, backupdir = utils.loadpaths("paths.txt", 'data', 'backup')
+pathfile     = os.path.abspath("paths.txt")
+datadir, backupdir = utils.loadpaths(pathfile, 'data', 'backup')
 missinglog   = os.path.join(datadir,'missinglogsheets.txt')
 logsheetname = 'logsheet.txt'
 backuplog    = os.path.join(datadir, 'backuplog.txt')
@@ -14,7 +15,9 @@ keywords     = ['Serialnumber', 'Software', 'Firmware', 'Technique']
 ext          = ('.ids','.idf')
 
 # Confirm paths exist
+assert len(datadir), "Source directory not set.\nEdit path file: %s" % pathfile
 assert os.path.exists(datadir), "Source directory not found: %s" % datadir
+assert len(backupdir), "Back up directory not set.\nEdit path file: %s" % pathfile
 assert os.path.exists(backupdir), "Back up directory not found: %s" % backupdir
 
 logsheetreport = ls.findlogsheets(datadir, logsheetname)
