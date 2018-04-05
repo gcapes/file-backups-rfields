@@ -52,4 +52,5 @@ otherwise not an experimental directory.
 
 ### Setting 'data' and 'backup' directories
 - Edit the file `paths.txt` in the root of this repository
-- `backup.py` and `createmissinglogsheets.py` will read paths from this file
+- All the processing scripts (`backup.py`, `createmissinglogsheets.py`, and `deleterawdata.py`)
+will read paths from this file
