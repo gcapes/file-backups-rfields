@@ -8,11 +8,8 @@ import csv
 import utils
 import datetime
 
-srcdir    = r"/home/mbexegc2/Downloads"
-backupdir = r"/home/mbexegc2/backup"
-
-assert os.path.isdir(srcdir)   , "Directory not found: %s" % srcdir
-assert os.path.isdir(backupdir), "Directory not found: %s" % backupdir
+pathfile = os.path.abspath("paths.txt")
+srcdir, backupdir = utils.loadpaths(pathfile, 'data', 'backup')
 
 backuplog = os.path.join(srcdir, "backuplog.txt")
 assert os.path.isfile(backuplog), "File not found: % s" % backuplog
