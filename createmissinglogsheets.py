@@ -13,3 +13,5 @@ with open(missinglogs, 'r') as f:
     for line in f:
         dir = line.strip('\n')
         ls.createlogsheet(dir)
+        print("-----------------------------------")
+print("Missing logsheet actions complete!")

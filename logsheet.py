@@ -40,9 +40,13 @@ def createlogsheet(dir):
             logsheetinfo = ['Creator: ' + creator, 'Experiment ID: ' + experimentid, 'Date: ' + date, 'General ID: ' + generalid]
             logsheetfile = os.path.join(dir,'logsheet.txt')
             utils.writelisttofile(logsheetinfo,logsheetfile)
+            print("Logsheet created: %s" % logsheetfile)
         elif action.lower().strip() == "i":
             open(ignorefile, 'w').close()
             print("Directory will be ignored: %s" % dir)
+        else:
+            print("Directory skipped")
+
 
 
 def copydirusinglogsheet(logsheet, dest):
