@@ -12,6 +12,7 @@ assert os.path.isfile(missinglogs), "File not found: %s" % missinglogs
 with open(missinglogs, 'r') as f:
     for line in f:
         dir = line.strip('\n')
-        ls.createlogsheet(dir)
+        if ls.createlogsheet(dir) == "q":
+            break
         print("-----------------------------------")
 print("Missing logsheet actions complete!")

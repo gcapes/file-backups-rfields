@@ -29,9 +29,14 @@ def createlogsheet(dir):
         return None
     else:
         print("Create logsheet for directory? %s" % dir)
-        action = input("Y - Yes\nN - Skip this time\nI - Ignore directory, and don't ask again\nAction: ")
+        print("Y - Yes")
+        print("I - Ignore directory, and don't ask again")
+        print("Q - Quit")
+        print("Any other key - Skip this time")
+        action = input("Your choice: ")
+        choice = action.lower().strip()
 
-        if action.lower().strip() == "y":
+        if choice == "y":
             creator = input('Creator: ')
             experimentid = input('Experiment ID: ')
             date = getdatefromdatafile(dir)
@@ -41,11 +46,13 @@ def createlogsheet(dir):
             logsheetfile = os.path.join(dir,'logsheet.txt')
             utils.writelisttofile(logsheetinfo,logsheetfile)
             print("Logsheet created: %s" % logsheetfile)
-        elif action.lower().strip() == "i":
+        elif choice == "i":
             open(ignorefile, 'w').close()
             print("Directory will be ignored: %s" % dir)
         else:
             print("Directory skipped")
+
+        return choice
 
 
 
