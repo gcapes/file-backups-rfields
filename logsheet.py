@@ -21,7 +21,11 @@ def createlogsheet(dir):
     if os.path.exists(logsheetfile):
         overwrite = input('File already exists: ' + logsheetfile + '. Overwrite? (Y/N): ')
         if overwrite.lower() == 'n':
+            print("Logsheet not overwritten.")
             return None
+        else:
+            print("Overwriting logsheet.")
+            choice = "y"
 
     ignorefile = os.path.join(dir, ".backupignore")
     if os.path.isfile(ignorefile):
