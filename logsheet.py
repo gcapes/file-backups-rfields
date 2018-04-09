@@ -8,7 +8,7 @@ import os
 import re
 import shutil
 
-def createlogsheet(dir):
+def createlogsheet(dir, dataroot):
     '''
     Write a file containing logsheet information from user input.
     :param dir: Where the file should be saved.
@@ -29,13 +29,14 @@ def createlogsheet(dir):
             choice = "y"
 
     ignorefile = os.path.join(dir, ".backupignore")
+    relpath = os.path.relpath(dir,dataroot)
     if os.path.isfile(ignorefile):
-        print("Ignored directory: %s" % dir)
+        print("Ignored directory: %s" % relpath)
         return None
     else:
         if not choice:
             # Only ask once if logsheet is to be overwritten.
-            print("Directory: %s" % dir)
+            print("Directory: %s" % relpath)
             print("Create logsheet?")
             print("Y - Yes")
             print("I - Ignore directory, and don't ask again")
@@ -56,7 +57,7 @@ def createlogsheet(dir):
             print("Logsheet created: %s" % logsheetfile)
         elif choice == "i":
             open(ignorefile, 'w').close()
-            print("Directory will be ignored: %s" % dir)
+            print("Directory will be ignored: %s" % relpath)
         else:
             print("Directory skipped")
 
