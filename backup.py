@@ -8,18 +8,22 @@ import getmetadata as gm
 # Define variables
 pathfile     = os.path.abspath("paths.txt")
 datadir, backupdir = utils.loadpaths(pathfile, 'data', 'backup')
-missinglog   = os.path.join(datadir,'missinglogsheets.txt')
 logsheetname = 'logsheet.txt'
+ignorefile   = '.backupignore'
+missinglog   = os.path.join(datadir,'missinglogsheets.txt')
+ignorelog   = os.path.join(datadir,'ignoreddirs.txt')
 backuplog    = os.path.join(datadir, 'backuplog.txt')
 keywords     = ['Serialnumber', 'Software', 'Firmware', 'Technique']
 ext          = ('.ids','.idf')
 
-logsheetreport = ls.findlogsheets(datadir, logsheetname)
+logsheetreport = ls.findlogsheets(datadir, logsheetname, ignorefile)
 
 dirswithlogsheet    = logsheetreport[0]
 dirsmissinglogsheet = logsheetreport[1]
+dirsignored         = logsheetreport[2]
 
 utils.writelisttofile(dirsmissinglogsheet, missinglog)
+utils.writelisttofile(dirsignored, ignorelog)
 
 # Confirm directories haven't already been backed up
 needbackup = dirswithlogsheet
@@ -53,3 +57,8 @@ else:
     print("No directories were copied.")
     print("See log file for directories already backed up: %s" % backuplog)
     print("See log file for missing logsheets: %s" % missinglog)
+
+if dirsignored:
+    print("The following directories have been ignored:")
+    for dir in dirsignored:
+        print(dir)

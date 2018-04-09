@@ -105,12 +105,12 @@ def copydirusinglogsheet(logsheet, dest):
     
     return src, backupdir
 
-def findlogsheets(basedir, logfile):
+def findlogsheets(basedir, logfile, ignorefile):
     '''
     Scan a directory to identify (missing and present) logsheets.
     :param basedir: Directory to scan (string)
     :param logfile: Name of log file to search for
-    :return: foundornot: List of lists [[dirs with logsheets],[dirs missing logsheets]]
+    :return: status: List of lists [[dirs with logsheets],[dirs missing logsheets], [ignored dirs]]
     '''
 
     assert os.path.exists(basedir), "Directory doesn't exist: %s" % basedir
@@ -120,6 +120,7 @@ def findlogsheets(basedir, logfile):
 
     found   = []
     missing = []
+    ignored = []
 
     # Identify which level should contain the logsheet.txt file (same as the *.idf, *.ids files)
     for root, subdirs, files in dirinfo:
@@ -127,13 +128,15 @@ def findlogsheets(basedir, logfile):
             if file.endswith(('.idf','.ids')):
                 if logfile in files:
                     found.append(root)
+                elif ignorefile in files:
+                    ignored.append(root)
                 else:
                     missing.append(root)
                 break
 
-    foundornot = [found, missing]
+    status = [found, missing, ignored]
 
-    return foundornot
+    return status
 
 def getdatefromdatafile(dir):
     """
