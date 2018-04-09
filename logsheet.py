@@ -18,6 +18,7 @@ def createlogsheet(dir):
     assert os.path.exists(dir), "Directory doesn't exist: %s." % dir
     # Confirm that logsheet.info is indeed missing from dir
     logsheetfile = os.path.join(dir,'logsheet.txt')
+    choice = None
     if os.path.exists(logsheetfile):
         overwrite = input('File already exists: ' + logsheetfile + '. Overwrite? (Y/N): ')
         if overwrite.lower() == 'n':
@@ -32,13 +33,16 @@ def createlogsheet(dir):
         print("Ignored directory: %s" % dir)
         return None
     else:
-        print("Create logsheet for directory? %s" % dir)
-        print("Y - Yes")
-        print("I - Ignore directory, and don't ask again")
-        print("Q - Quit")
-        print("Any other key - Skip this time")
-        action = input("Your choice: ")
-        choice = action.lower().strip()
+        if not choice:
+            # Only ask once if logsheet is to be overwritten.
+            print("Directory: %s" % dir)
+            print("Create logsheet?")
+            print("Y - Yes")
+            print("I - Ignore directory, and don't ask again")
+            print("Q - Quit")
+            print("Any other key - Skip this time")
+            action = input("Your choice: ")
+            choice = action.lower().strip()
 
         if choice == "y":
             creator = input('Creator: ')
