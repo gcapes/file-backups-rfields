@@ -51,12 +51,13 @@ if needbackup:
             now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             f.write(now + '\t' + src + '\t' + dest + '\n')
             print("Directory copied: %s" % dir)
-    print("Back up complete. See log file for details: %s" % backuplog)
-    print("Any directories missing logsheets were not backed up. See: %s" % missinglog)
+    print("Back up complete. See log file for directories copied: %s" % backuplog)
 else:
-    print("No directories were copied.")
+    print("No directories were backed up.")
     print("See log file for directories already backed up: %s" % backuplog)
-    print("See log file for missing logsheets: %s" % missinglog)
+
+if dirsmissinglogsheet:
+    print("See log file for directories missing log sheets: %s" % missinglog)
 
 if dirsignored:
     print("The following directories have been ignored:")
