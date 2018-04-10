@@ -16,7 +16,7 @@ with open(missinglogs, 'r') as f:
         if ls.createlogsheet(dir, datadir) == "q":
             break
         print("-----------------------------------")
-print("Missing logsheet actions complete!")
+print("Finished creating missing logsheets!")
 print("-----------------------------------")
 
 runbackup = input("Run back up now? (Y/N): ").lower().strip()
