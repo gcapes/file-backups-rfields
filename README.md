@@ -12,7 +12,7 @@
 ## Behaviour
 - The source (data) directory is assumed to be just that: raw data only.
 Once it has been backed up, it will not be backed up again even if files are modified or added.
-    - Analysis etc should be added to the backed up directory.
+    - Analysis etc should be added to the backup directory.
 - It is assumed that there is only one data directory containing all the experiments
 - There may be multiple outputs per file -- I have just taken the first complete set of information.
 - Complete directories (and subdirectories) are copied, using their original filenames.
@@ -24,20 +24,27 @@ If a directory doesn't contain an `.idf` or `.ids` file, it is either a sub-dire
 otherwise not an experimental directory.
 
 ## Usage
+### Set 'data' and 'backup' directories
+- Edit the file `paths.txt` in the root of this repository
+- All the processing scripts (`backup.py`, `createmissinglogsheets.py`, and `deleterawdata.py`)
+will read paths from this file
+- The 'data' directory doesn't have to be the root directory --
+it could be a user's subdirectory if they only want to back up their own data
+
 ### Back up directory using `backup.py`
-- scan recursively for `logsheet.txt` and where present, back up that directory
-    - first check that it hasn't already been backed up
-    - extract information from data files, and save in `README.txt`:
+- This function will scan recursively for `logsheet.txt` and where present, back up that directory
+    - first it checks that it hasn't already been backed up
+    - information is extracted from data files, and saved in `README.txt`:
         - Serial number
         - Software
         - Firmware
         - Technique
-- write logfile reporting missing logfiles: `missinglogfiles.txt`
-- write logfile reporting successful copies: `backuplog.txt`
+- logfile reporting missing logfiles: `missinglogfiles.txt`
+- logfile reporting successful copies: `backuplog.txt`
 
-### Create missing logsheets `createmissinglogsheets.py`
-- after back up (or manually) prompt user for information required for missing logsheets
-- `logsheet.txt` should contain the following information:
+### Create missing logsheets using `createmissinglogsheets.py`
+- This prompts the user for information required for missing logsheets
+- `logsheet.txt` will contain the following information:
     - creator
 	- date
 	- investigation ID
@@ -45,12 +52,9 @@ otherwise not an experimental directory.
 	- general ID
 
 ### Delete backed up directories using `deleterawdata.py`
-- Double checks that files have been copied before deleting from source directory
+- This double checks that files have been copied before deleting from source directory
 - Successful deletions reported at the prompt and in `deleteddirslog.txt`
 - Problems deleting directories are reported at the prompt and in `deleteerrorlog.txt`
-- Both log files are created in the data source directory
 
-### Setting 'data' and 'backup' directories
-- Edit the file `paths.txt` in the root of this repository
-- All the processing scripts (`backup.py`, `createmissinglogsheets.py`, and `deleterawdata.py`)
-will read paths from this file
+### Log files
+- All log files are created in the 'data' directory -- not the backup directory
