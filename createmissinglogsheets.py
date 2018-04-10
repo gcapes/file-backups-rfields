@@ -2,6 +2,7 @@
 import logsheet as ls
 import os
 import utils
+import backup
 
 datadir     = utils.loadpaths("paths.txt", 'data', 'backup')[0]
 missinglogs = "missinglogsheets.txt"
@@ -16,3 +17,12 @@ with open(missinglogs, 'r') as f:
             break
         print("-----------------------------------")
 print("Missing logsheet actions complete!")
+print("-----------------------------------")
+
+runbackup = input("Run back up now? (Y/N): ").lower().strip()
+if runbackup == "y":
+    print("Making back up ...")
+    backup.makebackup()
+else:
+    print("Back up not made.")
+print("-----------------------------------")
