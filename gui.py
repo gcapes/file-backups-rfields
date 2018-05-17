@@ -16,13 +16,13 @@ backup_frame = tk.LabelFrame(master=root, text="Back up")
 backup_frame.grid(row=5, column=2) # Sets maximum number of rows and cols
         
 # Button to set data directory
-data_dir_button = tk.Button(backup_frame, text="Select data directory", command=browse_data_dir)
-data_dir_button.grid(row=0, column=0)
-
 def browse_data_dir():
     global data_dir
     data_dir = fd.askdirectory(parent=backup_frame)
     data_dir_display.config(text=data_dir)
+    
+data_dir_button = tk.Button(backup_frame, text="Select data directory", command=browse_data_dir)
+data_dir_button.grid(row=0, column=0)
     
 # Display data directory
 data_dir_display = tk.Label(backup_frame, text=data_dir)
