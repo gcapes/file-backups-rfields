@@ -138,6 +138,21 @@ def findlogsheets(basedir, logfile, ignorefile):
 
     return status
 
+def writelogsheetreport(datadir, logsheetreport):
+    '''
+    Write log files containing list of directories missing log sheets,
+    and list of ignored directories.
+    '''
+    
+    dirsmissinglogsheet = logsheetreport[1]
+    dirsignored         = logsheetreport[2]
+    
+    missinglog  = os.path.join(datadir,'missinglogsheets.txt')
+    ignorelog   = os.path.join(datadir,'ignoreddirs.txt')
+    
+    utils.writelisttofile(dirsmissinglogsheet, missinglog)
+    utils.writelisttofile(dirsignored, ignorelog)
+
 def getdatefromdatafile(dir):
     """
     Scan .idf or .ids file for date, to be used in logsheet.txt

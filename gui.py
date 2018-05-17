@@ -28,5 +28,20 @@ data_dir_button.grid(row=0, column=0)
 data_dir_display = tk.Label(backup_frame, text=data_dir)
 data_dir_display.grid(row=0, column=1)
 
+
+# Find missing log sheets
+log_sheet_name = "logsheet.txt"
+
+def find_missing_logsheets():
+    try:
+        ignore_file = ".backupignore"
+        logsheetreport = log.findlogsheets(data_dir, log_sheet_name, ignore_file)
+        log.writelogsheetreport(data_dir, logsheetreport)
+    except AssertionError as fail:
+        tkmb.showerror(title="User error", message=fail)
+
+find_button = tk.Button(backup_frame, text="Find missing logsheets", command=find_missing_logsheets)
+find_button.grid(row=1, column=0)
+
 # Display GUI
 root.mainloop()
