@@ -10,7 +10,7 @@ import logsheet as log
 
 # Create main window
 root = tk.Tk()
-root.title("File back up utility")
+root.title("ElectroDaB: File back up utility")
 
 
 # Initialise variables
