@@ -8,6 +8,8 @@ import backup as b
 import logsheet as log
 #import os
 
+data_dir = "Your directory will be displayed here."
+
 root = tk.Tk()
 root.title("File back up utility")
 
