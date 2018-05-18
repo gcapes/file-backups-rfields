@@ -8,10 +8,13 @@ import backup as b
 import logsheet as log
 #import os
 
-data_dir = "Your directory will be displayed here."
-
+# Create main window
 root = tk.Tk()
 root.title("File back up utility")
+
+
+# Initialise variables
+data_dir = "Your directory will be displayed here."
 
 # Make a frame to group back up functions
 backup_frame = tk.LabelFrame(master=root, text="Back up")
