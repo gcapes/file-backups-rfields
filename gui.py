@@ -14,7 +14,8 @@ root.title("File back up utility")
 
 
 # Initialise variables
-data_dir = "Your directory will be displayed here."
+data_dir = "<Your data directory>"
+backup_dir = "<Your back up directory>"
 
 # Make a frame to group back up functions
 backup_frame = tk.LabelFrame(master=root, text="Back up")
@@ -28,10 +29,24 @@ def browse_data_dir():
     
 data_dir_button = tk.Button(backup_frame, text="Select data directory", command=browse_data_dir)
 data_dir_button.grid(row=0, column=0)
-    
+
 # Display data directory
 data_dir_display = tk.Label(backup_frame, text=data_dir)
 data_dir_display.grid(row=0, column=1)
+
+
+# Button to set back up directory
+def browse_backup_dir():
+    global backup_dir
+    backup_dir = fd.askdirectory(parent=backup_frame)
+    backup_dir_display.config(text=backup_dir)
+
+backup_dir_button = tk.Button(backup_frame, text="Select back up directory", command=browse_backup_dir)
+backup_dir_button.grid(row=1, column=0)
+
+# Display backup directory
+backup_dir_display = tk.Label(backup_frame, text=backup_dir)
+backup_dir_display.grid(row=1, column=1)
 
 
 # Find missing log sheets
@@ -46,7 +61,8 @@ def find_missing_logsheets():
         tkmb.showerror(title="User error", message=fail)
 
 find_button = tk.Button(backup_frame, text="Find missing logsheets", command=find_missing_logsheets)
-find_button.grid(row=1, column=0)
+find_button.grid(row=3, column=0)
+
 
 # Display GUI
 root.mainloop()
