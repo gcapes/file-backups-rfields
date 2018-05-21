@@ -5,17 +5,12 @@ import os
 import datetime
 import getmetadata as gm
 
-def makebackup():
-    # Define variables
-    pathfile     = os.path.abspath("paths.txt")
-    datadir, backupdir = utils.loadpaths(pathfile, 'data', 'backup')
+def makebackup(datadir, backupdir, keywords, ext):
     logsheetname = 'logsheet.txt'
     ignorefile   = '.backupignore'
     missinglog   = os.path.join(datadir,'missinglogsheets.txt')
     ignorelog   = os.path.join(datadir,'ignoreddirs.txt')
     backuplog    = os.path.join(datadir, 'backuplog.txt')
-    keywords     = ['Serialnumber', 'Software', 'Firmware', 'Technique']
-    ext          = ('.ids','.idf')
     
     logsheetreport = ls.findlogsheets(datadir, logsheetname, ignorefile)
     
@@ -25,6 +20,8 @@ def makebackup():
     
     utils.writelisttofile(dirsmissinglogsheet, missinglog)
     utils.writelisttofile(dirsignored, ignorelog)
+    
+    infostring = '' # Return messages for GUI dialog.
     
     # Confirm directories haven't already been backed up
     needbackup = dirswithlogsheet
@@ -53,17 +50,29 @@ def makebackup():
                 f.write(now + '\t' + src + '\t' + dest + '\n')
                 print("Directory copied: %s" % dir)
         print("Back up complete. See log file for directories copied: %s" % backuplog)
+        infostring += "Back up complete. See log file for directories copied: %s\n" % backuplog
     else:
         print("No directories were backed up.")
         print("See log file for directories already backed up: %s" % backuplog)
+        infostring += "No directories were backed up.\n"
+        infostring += "Check for missing log sheets, and/or review the back up log: %s\n" % backuplog
     
     if dirsmissinglogsheet:
         print("See log file for directories missing log sheets: %s" % missinglog)
     
     if dirsignored:
         print("The following directories have been ignored:")
+        infostring += "Some directories were ignored. See %s" % os.path.join(datadir, 'ignoreddirs.txt')
         for dir in dirsignored:
             print(dir)
+    return infostring
 
+# Run script from prompt rather than use function from GUI.
 if __name__ == "__main__":
-    makebackup()
+    # Define variables
+    pathfile     = os.path.abspath("paths.txt")
+    datadir, backupdir = utils.loadpaths(pathfile, 'data', 'backup')
+    keywords     = ['Serialnumber', 'Software', 'Firmware', 'Technique']
+    ext          = ('.ids','.idf')
+    
+    makebackup(datadir, backupdir, keywords, ext)

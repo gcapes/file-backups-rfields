@@ -2,6 +2,7 @@ import tkinter as tk
 # For some reason, the above doesn't import messagebox, so have to import separately.
 import tkinter.messagebox as tkmb
 import tkinter.filedialog as fd
+import tkinter.ttk as ttk
 import utils
 import os
 
@@ -87,6 +88,21 @@ def find_missing_logsheets():
 find_button = tk.Button(backup_frame, text="Find missing logsheets", command=find_missing_logsheets)
 find_button.grid(row=3, column=0)
 
+# Back up data
+p = ttk.Progressbar(backup_frame, orient='horizontal', length=200, mode='indeterminate')
+p.grid(row=4, column=1)
+
+
+def back_up_data():
+    keywords = ['Serialnumber', 'Software', 'Firmware', 'Technique']
+    ext      = ('.ids','.idf')
+    p.start()
+    infostring = b.makebackup(data_dir, backup_dir, keywords, ext)
+    p.stop()
+    tkmb.showinfo(title="Back up summary", message=infostring)
+    
+backup_button = tk.Button(backup_frame, text="Back up data", command=back_up_data)
+backup_button.grid(row=4, column=0)
 
 # Display GUI
 root.mainloop()
