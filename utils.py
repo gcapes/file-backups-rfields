@@ -143,7 +143,6 @@ def savepaths(pathfile, src, dest):
     :param: dest: destination directory
     """
 
-    assert os.path.isfile(pathfile), "File not found: %s" % pathfile
 
     # Ensure back up is not within the source directory -- recursive back up would result.
     dest = os.path.abspath(dest)

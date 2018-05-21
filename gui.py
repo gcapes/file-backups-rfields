@@ -13,29 +13,41 @@ import logsheet as log
 root = tk.Tk()
 root.title("ElectroDaB: File back up utility")
 
-
 # Initialise variables
 pathfile = os.path.abspath("paths.txt")
+data_dir = ""
+backup_dir = ""
+
+
+def save_paths(pathfile, data_dir, backup_dir):
+    try:
+        utils.savepaths(pathfile, data_dir, backup_dir)
+    except FileNotFoundError as not_found_fail:
+        tkmb.showerror(title="Path file error", message=not_found_fail)
+    except NameError as name_fail:
+        tkmb.showerror(title="Invalid paths", message=name_fail)
+
+# Load paths from file
 try:
     data_dir, backup_dir = utils.loadpaths(pathfile, 'data', 'backup')
 except AssertionError as load_path_fail:
-    tkmb.showerror(title="Path file missing!", message=load_path_fail)
+    tkmb.showerror(title="Problem with path file", message=load_path_fail)
+    data_dir = fd.askdirectory(title="Select data directory")
+    backup_dir = fd.askdirectory(title="Select back up directory")
+    save_paths(pathfile, data_dir, backup_dir)
+
 
 # Make a frame to group back up functions
 backup_frame = tk.LabelFrame(master=root, text="Back up")
 backup_frame.grid(row=5, column=2) # Sets maximum number of rows and cols
         
+
 # Button to set data directory
 def browse_data_dir():
     global data_dir
-    data_dir = fd.askdirectory(parent=backup_frame, initialdir=data_dir)
-    data_dir_display.config(text=data_dir)
-    try:
-        utils.savepaths(pathfile, data_dir, backup_dir)
-    except AssertionError as assert_fail:
-        tkmb.showerror(title="Path file error", message=assert_fail)
-    except NameError as name_fail:
-        tkmb.showerror(title="Invalid paths", message=name_fail)
+    data_dir = fd.askdirectory(parent=backup_frame, initialdir=data_dir,
+                               title="Select data directory")
+    save_paths(pathfile, data_dir, backup_dir)
     
 data_dir_button = tk.Button(backup_frame, text="Select data directory", command=browse_data_dir)
 data_dir_button.grid(row=0, column=0)
@@ -48,14 +60,10 @@ data_dir_display.grid(row=0, column=1)
 # Button to set back up directory
 def browse_backup_dir():
     global backup_dir
-    backup_dir = fd.askdirectory(parent=backup_frame, initialdir=backup_dir)
+    backup_dir = fd.askdirectory(parent=backup_frame, initialdir=backup_dir,
+                                 title="Select back up directory")
     backup_dir_display.config(text=backup_dir)
-    try:
-        utils.savepaths(pathfile, data_dir, backup_dir)
-    except AssertionError as assert_fail:
-        tkmb.showerror(title="Path file error", message=assert_fail)
-    except NameError as name_fail:
-        tkmb.showerror(title="Invalid paths", message=name_fail)
+    save_paths(pathfile, data_dir, backup_dir)
 
 backup_dir_button = tk.Button(backup_frame, text="Select back up directory", command=browse_backup_dir)
 backup_dir_button.grid(row=1, column=0)
