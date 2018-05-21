@@ -144,5 +144,14 @@ def savepaths(pathfile, src, dest):
     """
 
     assert os.path.isfile(pathfile), "File not found: %s" % pathfile
+
+    # Ensure back up is not within the source directory -- recursive back up would result.
+    dest = os.path.abspath(dest)
+    pathoverlap = os.path.commonpath([src,dest])
+    if src == pathoverlap:
+        raise NameError('Back up directory must be outside of the source directory!\n'
+                         'Back up: %s\n'
+                         'Source: %s\n' % (dest, src))
+
     data = ["data: " + src, "backup: " + dest]
     writelisttofile(data, pathfile)

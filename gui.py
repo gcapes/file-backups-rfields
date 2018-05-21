@@ -30,7 +30,12 @@ def browse_data_dir():
     global data_dir
     data_dir = fd.askdirectory(parent=backup_frame, initialdir=data_dir)
     data_dir_display.config(text=data_dir)
-    utils.savepaths(pathfile, data_dir, backup_dir)
+    try:
+        utils.savepaths(pathfile, data_dir, backup_dir)
+    except AssertionError as assert_fail:
+        tkmb.showerror(title="Path file error", message=assert_fail)
+    except NameError as name_fail:
+        tkmb.showerror(title="Invalid paths", message=name_fail)
     
 data_dir_button = tk.Button(backup_frame, text="Select data directory", command=browse_data_dir)
 data_dir_button.grid(row=0, column=0)
@@ -45,7 +50,12 @@ def browse_backup_dir():
     global backup_dir
     backup_dir = fd.askdirectory(parent=backup_frame, initialdir=backup_dir)
     backup_dir_display.config(text=backup_dir)
-    utils.savepaths(pathfile, data_dir, backup_dir)
+    try:
+        utils.savepaths(pathfile, data_dir, backup_dir)
+    except AssertionError as assert_fail:
+        tkmb.showerror(title="Path file error", message=assert_fail)
+    except NameError as name_fail:
+        tkmb.showerror(title="Invalid paths", message=name_fail)
 
 backup_dir_button = tk.Button(backup_frame, text="Select back up directory", command=browse_backup_dir)
 backup_dir_button.grid(row=1, column=0)
