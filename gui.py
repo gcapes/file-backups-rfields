@@ -1,12 +1,13 @@
 import tkinter as tk
 # For some reason, the above doesn't import messagebox, so have to import separately.
 import tkinter.messagebox as tkmb
-import tkinter.ttk as ttk
 import tkinter.filedialog as fd
+import utils
+import os
 
 import backup as b
 import logsheet as log
-#import os
+
 
 # Create main window
 root = tk.Tk()
@@ -14,8 +15,8 @@ root.title("ElectroDaB: File back up utility")
 
 
 # Initialise variables
-data_dir = "<Your data directory>"
-backup_dir = "<Your back up directory>"
+pathfile = os.path.abspath("paths.txt")
+datadir, backupdir = utils.loadpaths(pathfile, 'data', 'backup')
 
 # Make a frame to group back up functions
 backup_frame = tk.LabelFrame(master=root, text="Back up")
@@ -26,6 +27,7 @@ def browse_data_dir():
     global data_dir
     data_dir = fd.askdirectory(parent=backup_frame)
     data_dir_display.config(text=data_dir)
+    utils.savepaths(pathfile, data_dir, backup_dir)
     
 data_dir_button = tk.Button(backup_frame, text="Select data directory", command=browse_data_dir)
 data_dir_button.grid(row=0, column=0)
@@ -40,6 +42,7 @@ def browse_backup_dir():
     global backup_dir
     backup_dir = fd.askdirectory(parent=backup_frame)
     backup_dir_display.config(text=backup_dir)
+    utils.savepaths(pathfile, data_dir, backup_dir)
 
 backup_dir_button = tk.Button(backup_frame, text="Select back up directory", command=browse_backup_dir)
 backup_dir_button.grid(row=1, column=0)

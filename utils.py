@@ -132,3 +132,17 @@ def loadpaths(pathfile, src, dest):
     
     
     return (datadir, backupdir)
+
+def savepaths(pathfile, src, dest):
+    """
+    Write a text file containing data directory
+    and back up directory paths.
+
+    :param: pathfile: File to write to
+    :param: src: source directory
+    :param: dest: destination directory
+    """
+
+    assert os.path.isfile(pathfile), "File not found: %s" % pathfile
+    data = ["data: " + src, "backup: " + dest]
+    writelisttofile(data, pathfile)
