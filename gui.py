@@ -74,11 +74,10 @@ backup_dir_display.grid(row=1, column=1)
 
 
 # Find missing log sheets
-log_sheet_name = "logsheet.txt"
-
 def find_missing_logsheets():
+    log_sheet_name = "logsheet.txt"
+    ignore_file = ".backupignore"
     try:
-        ignore_file = ".backupignore"
         logsheetreport = log.findlogsheets(data_dir, log_sheet_name, ignore_file)
         log.writelogsheetreport(data_dir, logsheetreport)
         tkmb.showinfo(message="Missing log sheets logged in %s" % os.path.join(data_dir, "missinglogsheets.txt"))
