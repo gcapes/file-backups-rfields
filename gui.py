@@ -25,7 +25,7 @@ backup_frame.grid(row=5, column=2) # Sets maximum number of rows and cols
 # Button to set data directory
 def browse_data_dir():
     global data_dir
-    data_dir = fd.askdirectory(parent=backup_frame)
+    data_dir = fd.askdirectory(parent=backup_frame, initialdir=data_dir)
     data_dir_display.config(text=data_dir)
     utils.savepaths(pathfile, data_dir, backup_dir)
     
@@ -40,7 +40,7 @@ data_dir_display.grid(row=0, column=1)
 # Button to set back up directory
 def browse_backup_dir():
     global backup_dir
-    backup_dir = fd.askdirectory(parent=backup_frame)
+    backup_dir = fd.askdirectory(parent=backup_frame, initialdir=backup_dir)
     backup_dir_display.config(text=backup_dir)
     utils.savepaths(pathfile, data_dir, backup_dir)
 
