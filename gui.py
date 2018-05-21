@@ -16,7 +16,10 @@ root.title("ElectroDaB: File back up utility")
 
 # Initialise variables
 pathfile = os.path.abspath("paths.txt")
-datadir, backupdir = utils.loadpaths(pathfile, 'data', 'backup')
+try:
+    data_dir, backup_dir = utils.loadpaths(pathfile, 'data', 'backup')
+except AssertionError as load_path_fail:
+    tkmb.showerror(title="Path file missing!", message=load_path_fail)
 
 # Make a frame to group back up functions
 backup_frame = tk.LabelFrame(master=root, text="Back up")
