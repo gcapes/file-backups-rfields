@@ -91,7 +91,7 @@ backup_button.grid(row=4, column=0)
 
 # Make a frame to group logsheet functions
 logsheet_frame = tk.LabelFrame(master=root, text="Log sheets")
-logsheet_frame.grid(row=1, column=0) # Sets row and col position of widget
+logsheet_frame.grid(row=1, column=0, pady=10) # Sets row and col position of widget
 
 # Find missing log sheets
 def find_missing_logsheets():
