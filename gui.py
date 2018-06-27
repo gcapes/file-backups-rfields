@@ -40,7 +40,7 @@ except AssertionError as load_path_fail:
 
 # Make a frame to group back up functions
 backup_frame = tk.LabelFrame(master=root, text="Back up")
-backup_frame.grid(row=5, column=2) # Sets maximum number of rows and cols
+backup_frame.grid(row=0, column=0) # Sets row and col position of widget
         
 
 # Button to set data directory
@@ -73,21 +73,6 @@ backup_dir_button.grid(row=1, column=0)
 backup_dir_display = tk.Label(backup_frame, text=backup_dir)
 backup_dir_display.grid(row=1, column=1)
 
-
-# Find missing log sheets
-def find_missing_logsheets():
-    log_sheet_name = "logsheet.txt"
-    ignore_file = ".backupignore"
-    try:
-        logsheetreport = log.findlogsheets(data_dir, log_sheet_name, ignore_file)
-        log.writelogsheetreport(data_dir, logsheetreport)
-        tkmb.showinfo(message="Missing log sheets logged in %s" % os.path.join(data_dir, "missinglogsheets.txt"))
-    except AssertionError as fail:
-        tkmb.showerror(title="User error", message=fail)
-
-find_button = tk.Button(backup_frame, text="Find missing logsheets", command=find_missing_logsheets)
-find_button.grid(row=3, column=0)
-
 # Back up data
 p = ttk.Progressbar(backup_frame, orient='horizontal', length=200, mode='indeterminate')
 p.grid(row=4, column=1)
@@ -103,6 +88,24 @@ def back_up_data():
     
 backup_button = tk.Button(backup_frame, text="Back up data", command=back_up_data)
 backup_button.grid(row=4, column=0)
+
+# Make a frame to group logsheet functions
+logsheet_frame = tk.LabelFrame(master=root, text="Log sheets")
+logsheet_frame.grid(row=1, column=0) # Sets row and col position of widget
+
+# Find missing log sheets
+def find_missing_logsheets():
+    log_sheet_name = "logsheet.txt"
+    ignore_file = ".backupignore"
+    try:
+        logsheetreport = log.findlogsheets(data_dir, log_sheet_name, ignore_file)
+        log.writelogsheetreport(data_dir, logsheetreport)
+        tkmb.showinfo(message="Missing log sheets logged in %s" % os.path.join(data_dir, "missinglogsheets.txt"))
+    except AssertionError as fail:
+        tkmb.showerror(title="User error", message=fail)
+
+find_button = tk.Button(logsheet_frame, text="Find missing logsheets", command=find_missing_logsheets)
+find_button.grid(row=0, column=0)
 
 # Display GUI
 root.mainloop()
