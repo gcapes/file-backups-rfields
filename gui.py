@@ -50,7 +50,7 @@ def browse_data_dir():
                                title="Select data directory")
     save_paths(pathfile, data_dir, backup_dir)
     
-data_dir_button = tk.Button(backup_frame, text="Select data directory", command=browse_data_dir)
+data_dir_button = tk.Button(backup_frame, text="Select data directory", width=25, command=browse_data_dir)
 data_dir_button.grid(row=0, column=0)
 
 # Display data directory
@@ -66,7 +66,7 @@ def browse_backup_dir():
     backup_dir_display.config(text=backup_dir)
     save_paths(pathfile, data_dir, backup_dir)
 
-backup_dir_button = tk.Button(backup_frame, text="Select back up directory", command=browse_backup_dir)
+backup_dir_button = tk.Button(backup_frame, text="Select back up directory", width=25, command=browse_backup_dir)
 backup_dir_button.grid(row=1, column=0)
 
 # Display backup directory
@@ -86,7 +86,7 @@ def back_up_data():
     p.stop()
     tkmb.showinfo(title="Back up summary", message=infostring)
     
-backup_button = tk.Button(backup_frame, text="Back up data", command=back_up_data)
+backup_button = tk.Button(backup_frame, text="Back up data", command=back_up_data, width=25)
 backup_button.grid(row=4, column=0)
 
 # Make a frame to group logsheet functions
