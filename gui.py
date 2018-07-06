@@ -18,6 +18,8 @@ root.title("ElectroDaB: File back up utility")
 pathfile = os.path.abspath("paths.txt")
 data_dir = ""
 backup_dir = ""
+missing_logsheets_log = tk.StringVar()
+missing_logsheets_log.set('temp')
 
 
 def save_paths(pathfile, data_dir, backup_dir):
@@ -102,7 +104,13 @@ def find_missing_logsheets():
     try:
         logsheetreport = log.findlogsheets(data_dir, log_sheet_name, ignore_file)
         log.writelogsheetreport(data_dir, logsheetreport)
-        tkmb.showinfo(message="Missing log sheets logged in %s" % os.path.join(data_dir, "missinglogsheets.txt"))
+        missing_logsheet_file = os.path.join(data_dir, "missinglogsheets.txt")
+        tkmb.showinfo(message="Missing log sheets logged in %s" % missing_logsheet_file)
+        global missing_logsheets_log
+        missing_logsheets_log.set(missing_logsheet_file)
+        missing_logsheet_label = tk.Label(logsheet_frame, text=missing_logsheets_log.get())
+        missing_logsheet_label.grid(row=1, column=0)
+
     except AssertionError as fail:
         tkmb.showerror(title="User error", message=fail)
 
