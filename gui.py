@@ -33,15 +33,16 @@ try:
     data_dir, backup_dir = utils.loadpaths(pathfile, 'data', 'backup')
 except AssertionError as load_path_fail:
     tkmb.showerror(title="Problem with path file", message=load_path_fail)
+    # Prompt user to locate correct path file
     data_dir = fd.askdirectory(title="Select data directory")
     backup_dir = fd.askdirectory(title="Select back up directory")
     save_paths(pathfile, data_dir, backup_dir)
 
 
-# Make a frame to group back up functions
+# Group back up functions in a frame
 backup_frame = tk.LabelFrame(master=root, text="Back up")
 backup_frame.grid(row=0, column=0) # Sets row and col position of widget
-        
+
 
 # Button to set data directory
 def browse_data_dir():
@@ -49,7 +50,7 @@ def browse_data_dir():
     data_dir = fd.askdirectory(parent=backup_frame, initialdir=data_dir,
                                title="Select data directory")
     save_paths(pathfile, data_dir, backup_dir)
-    
+
 data_dir_button = tk.Button(backup_frame, text="Select data directory", width=25, command=browse_data_dir)
 data_dir_button.grid(row=0, column=0)
 
@@ -73,11 +74,11 @@ backup_dir_button.grid(row=1, column=0)
 backup_dir_display = tk.Label(backup_frame, text=backup_dir)
 backup_dir_display.grid(row=1, column=1)
 
-# Back up data
+# Back up progress bar
 p = ttk.Progressbar(backup_frame, orient='horizontal', length=200, mode='indeterminate')
 p.grid(row=4, column=1)
 
-
+# Back up data
 def back_up_data():
     keywords = ['Serialnumber', 'Software', 'Firmware', 'Technique']
     ext      = ('.ids','.idf')
@@ -85,9 +86,10 @@ def back_up_data():
     infostring = b.makebackup(data_dir, backup_dir, keywords, ext)
     p.stop()
     tkmb.showinfo(title="Back up summary", message=infostring)
-    
+
 backup_button = tk.Button(backup_frame, text="Back up data", command=back_up_data, width=25)
 backup_button.grid(row=4, column=0)
+
 
 # Make a frame to group logsheet functions
 logsheet_frame = tk.LabelFrame(master=root, text="Log sheets")
