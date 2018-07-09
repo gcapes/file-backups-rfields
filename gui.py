@@ -161,6 +161,7 @@ def get_first_experiment_path():
     exp_num.set(0)
     # load first experiment
     load_experiment_path(data_dir)
+    load_experiment_date()
 
 
 # Button to load first missing logsheet
@@ -177,14 +178,36 @@ def get_next_experiment_path():
     exp_num.set(counter)
     # load this experiment
     load_experiment_path(data_dir)
+    load_experiment_date()
 
 # Load next experiment with missing logsheet
 next_logsheet_button = tk.Button(create_logsheet_frame, text="Get next", command=get_next_experiment_path)
 next_logsheet_button.grid(row=1, column=1)
 
 # Label widget to diplay current experiment
-current_experiment_display = tk.Label(create_logsheet_frame, text="Current experiment")
+current_experiment_display = tk.Label(create_logsheet_frame)
 current_experiment_display.grid(row=2, column=1)
+
+current_exp_label = tk.Label(create_logsheet_frame, text="Current experiment:")
+current_exp_label.grid(row=2, column=0, sticky="e")
+
+#display date
+date_label = tk.Label(create_logsheet_frame, text="Date (YYYYMMDD):")
+date_label.grid(row=6, column=0, sticky="e")
+date_display = tk.Label(create_logsheet_frame)
+date_display.grid(row=6, column=1)
+
+def load_experiment_date():
+    global exp_date
+    try:
+        exp_date = log.getdatefromdatafile(data_dir)
+        date_display.config(text=exp_date)
+    except NameError as filenameerror:
+        tkmb.showerror(title="Data file not found", message=filenameerror)
+    except ValueError as datenotfound:
+        tkmb.showerror(title="Date not found", message=datenotfound)
+    except AssertionError as invalidpath:
+        tkmb.showerror(title="File not found", message=invalidpath)
 
 # Display GUI
 root.mainloop()
