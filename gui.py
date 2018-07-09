@@ -19,7 +19,7 @@ pathfile = os.path.abspath("paths.txt")
 data_dir = ""
 backup_dir = ""
 missing_logsheets_log = tk.StringVar()
-missing_logsheets_log.set('temp')
+missing_logsheets_log.set('missinglogsheets.txt')
 
 
 def save_paths(pathfile, data_dir, backup_dir):
@@ -102,14 +102,14 @@ logsheet_frame.grid(row=1, column=0, pady=10) # Sets row and col position of wid
 
 # Find missing log sheets
 def find_missing_logsheets():
+    global missing_logsheets_log
     log_sheet_name = "logsheet.txt"
     ignore_file = ".backupignore"
     try:
         logsheetreport = log.findlogsheets(data_dir, log_sheet_name, ignore_file)
         log.writelogsheetreport(data_dir, logsheetreport)
-        missing_logsheet_file = os.path.join(data_dir, "missinglogsheets.txt")
+        missing_logsheet_file = os.path.join(data_dir, missing_logsheets_log.get())
         tkmb.showinfo(message="Missing log sheets logged in %s" % missing_logsheet_file)
-        global missing_logsheets_log
         missing_logsheets_log.set(missing_logsheet_file)
         missing_logsheet_label = tk.Label(logsheet_frame, text=missing_logsheets_log.get())
         missing_logsheet_label.grid(row=1, column=0)
