@@ -195,6 +195,28 @@ current_experiment_display.grid(row=2, column=1)
 current_exp_label = tk.Label(create_logsheet_frame, text="Current experiment:")
 current_exp_label.grid(row=2, column=0, sticky="e")
 
+# Entry widgets to get user input
+creator = tk.StringVar()
+exp_ID = tk.StringVar()
+gen_ID = tk. StringVar()
+
+creator_label = tk.Label(create_logsheet_frame, text="Creator:")
+creator_label.grid(row=3, column=0, sticky="e")
+creator_display = tk.Entry(create_logsheet_frame, textvariable=creator)
+creator_display.grid(row=3, column=1)
+
+#experiment id
+exp_id_label = tk.Label(create_logsheet_frame, text="Experiment ID:")
+exp_id_label.grid(row=4, column=0, sticky="e")
+exp_id_display = tk.Entry(create_logsheet_frame, textvariable=exp_ID)
+exp_id_display.grid(row=4, column=1)
+
+#general id
+gen_id_label = tk.Label(create_logsheet_frame, text="General ID:")
+gen_id_label.grid(row=5, column=0, sticky="e")
+gen_id_display = tk.Entry(create_logsheet_frame, textvariable=gen_ID)
+gen_id_display.grid(row=5, column=1)
+
 #display date
 date_label = tk.Label(create_logsheet_frame, text="Date (YYYYMMDD):")
 date_label.grid(row=6, column=0, sticky="e")
