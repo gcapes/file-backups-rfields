@@ -92,6 +92,9 @@ def back_up_data():
 backup_button = tk.Button(backup_frame, text="Back up data", command=back_up_data, width=25)
 backup_button.grid(row=4, column=0)
 
+########################
+## Logsheet functions ##
+########################
 
 # Make a frame to group logsheet functions
 logsheet_frame = tk.LabelFrame(master=root, text="Log sheets")
@@ -116,6 +119,72 @@ def find_missing_logsheets():
 
 find_button = tk.Button(logsheet_frame, text="Find missing logsheets", command=find_missing_logsheets)
 find_button.grid(row=0, column=0)
+
+# Group widgets used to create missing logsheets
+create_logsheet_frame = tk.LabelFrame(master=logsheet_frame, text="Create logsheets")
+create_logsheet_frame.grid(row=2)
+
+# Declare variables
+exp_num = tk.IntVar()
+exp_path = tk.StringVar()
+
+def load_experiment_path(data_dir):
+    '''
+    Read missinglogsheets.txt file to get path to experiment directory specified
+    by exp_number.
+    data_dir: directory containing the data,
+              with separate directories for each experiment.
+    '''
+    global missing_logsheets_log
+    global exp_path
+    try:
+        missinglogs = os.path.join(data_dir, missing_logsheets_log.get())
+        with open(missinglogs, 'r') as f:
+            for line_num, line in enumerate(f):
+                if line_num == exp_num.get():
+                    exp_path.set(line.strip('\n'))
+                    current_experiment_display.configure(text=exp_path.get())
+                    break
+            if exp_num.get() > line_num:
+                    tkmb.showinfo(title="Complete", message="No more logsheets to process.")
+
+    except FileNotFoundError as not_found:
+        tkmb.showerror(title="Can't find missing logsheets file", message=not_found)
+
+
+def get_first_experiment_path():
+    '''
+    Reset experiment number to zero, i.e. start at the beginning of the
+    missinglogsheets.txt file, and load path to experiment.
+    '''
+    global exp_num
+    exp_num.set(0)
+    # load first experiment
+    load_experiment_path(data_dir)
+
+
+# Button to load first missing logsheet
+first_logsheet_button = tk.Button(create_logsheet_frame, text="Start", command=get_first_experiment_path)
+first_logsheet_button.grid(row=1, column=0)
+
+def get_next_experiment_path():
+    '''
+    Advance to next experiment in missinglogsheets.txt, and load
+    path to experiment.
+    '''
+    counter = exp_num.get()
+    counter +=1
+    exp_num.set(counter)
+    # load this experiment
+    load_experiment_path(data_dir)
+
+# Load next experiment with missing logsheet
+next_logsheet_button = tk.Button(create_logsheet_frame, text="Get next", command=get_next_experiment_path)
+next_logsheet_button.grid(row=1, column=1)
+
+# Label widget to diplay current experiment
+current_experiment_display = tk.Label(create_logsheet_frame, text="Current experiment")
+current_experiment_display.grid(row=2, column=1)
 
 # Display GUI
 root.mainloop()
