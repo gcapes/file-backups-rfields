@@ -14,6 +14,10 @@ import logsheet as log
 root = tk.Tk()
 root.title("ElectroDaB: File back up utility")
 
+#######################
+## Back up functions ##
+#######################
+
 # Initialise variables
 pathfile = os.path.abspath("paths.txt")
 data_dir = ""
