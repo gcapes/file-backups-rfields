@@ -199,6 +199,7 @@ current_exp_label.grid(row=2, column=0, sticky="e")
 creator = tk.StringVar()
 exp_ID = tk.StringVar()
 gen_ID = tk. StringVar()
+exp_date = tk.StringVar()
 
 creator_label = tk.Label(create_logsheet_frame, text="Creator:")
 creator_label.grid(row=3, column=0, sticky="e")
@@ -226,14 +227,42 @@ date_display.grid(row=6, column=1)
 def load_experiment_date():
     global exp_date
     try:
-        exp_date = log.getdatefromdatafile(data_dir)
-        date_display.config(text=exp_date)
+        exp_date.set(log.getdatefromdatafile(data_dir))
+        date_display.config(text=exp_date.get())
     except NameError as filenameerror:
         tkmb.showerror(title="Data file not found", message=filenameerror)
     except ValueError as datenotfound:
         tkmb.showerror(title="Date not found", message=datenotfound)
     except AssertionError as invalidpath:
         tkmb.showerror(title="File not found", message=invalidpath)
+
+
+# Button to write log sheet
+def write_logsheet():
+    global data_dir
+    global exp_ID
+    global gen_ID
+    global creator
+    global exp_date
+
+    try:
+        logsheet = os.path.join(data_dir, 'logsheet.txt')
+        logsheetinfo = ['Creator: ' + creator.get(), 'Experiment ID: ' + exp_ID.get(),
+                        'Date: ' + exp_date.get(), 'General ID: ' + gen_ID.get()]
+
+        if os.path.exists(logsheet):
+            # A logsheet might already exist if user hasn't re-run `find missing logsheets`
+            response = tkmb.askyesno(title='File already exists', message='Overwrite existing logsheet?')
+            if not response:
+                return
+
+        utils.writelisttofile(logsheetinfo,logsheet)
+    except NameError as dirnotfound:
+        tkmb.showerror(title="Directory not found", message=dirnotfound)
+
+
+write_logsheet_button = tk.Button(create_logsheet_frame, text="Create", command=write_logsheet)
+write_logsheet_button.grid(row=7, column=0)
 
 # Display GUI
 root.mainloop()
