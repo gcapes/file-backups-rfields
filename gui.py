@@ -111,6 +111,7 @@ def find_missing_logsheets():
     log_sheet_name = "logsheet.txt"
     ignore_file = ".backupignore"
     try:
+        assert data_dir, "Data directory hasn't been set"
         logsheetreport = log.findlogsheets(data_dir, log_sheet_name, ignore_file)
         log.writelogsheetreport(data_dir, logsheetreport)
         missing_logsheet_file = os.path.join(data_dir, missing_logsheets_log.get())
