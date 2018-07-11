@@ -262,6 +262,12 @@ def write_logsheet():
             if not response:
                 return
 
+        ignorefile = os.path.join(exp_path.get(), ".backupignore")
+        if os.path.isfile(ignorefile):
+            errormessage = "This is an ignored directory.\nTry re-running `find missing logsheets`."
+            tkmb.showinfo(title="Directory ignored", message=errormessage)
+            return
+
         utils.writelisttofile(logsheetinfo,logsheet)
     except NameError as dirnotfound:
         tkmb.showerror(title="Directory not found", message=dirnotfound)
@@ -269,6 +275,18 @@ def write_logsheet():
 
 write_logsheet_button = tk.Button(create_logsheet_frame, text="Create", command=write_logsheet)
 write_logsheet_button.grid(row=7, column=0)
+
+# Ignore button
+def ignore_experiment():
+    global exp_path
+    response = tkmb.askyesno(title="Ignore experiment?", message="Are you sure you want to ignore directory %s?" % exp_path.get())
+    if response:
+        ignorefile = os.path.join(exp_path.get(), ".backupignore")
+        open(ignorefile, 'w').close()
+
+
+ignore_experiment_button = tk.Button(create_logsheet_frame, text="Ignore", command=ignore_experiment)
+ignore_experiment_button.grid(row=7, column=2)
 
 # Display GUI
 root.mainloop()
