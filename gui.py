@@ -42,7 +42,8 @@ except AssertionError as load_path_fail:
     # Prompt user to locate correct path file
     data_dir = fd.askdirectory(title="Select data directory")
     backup_dir = fd.askdirectory(title="Select back up directory")
-    save_paths(pathfile, data_dir, backup_dir)
+    if data_dir and backup_dir:
+        save_paths(pathfile, data_dir, backup_dir)
 
 
 # Group back up functions in a frame
