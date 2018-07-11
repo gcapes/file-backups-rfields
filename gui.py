@@ -27,6 +27,15 @@ missing_logsheets_log.set('missinglogsheets.txt')
 
 
 def save_paths(pathfile, data_dir, backup_dir):
+    '''
+    Save user-defined paths to the data directory
+    and the back up directory
+
+    parameters:
+    pathfile: 'paths.txt' plain text file which stores the paths
+    data_dir: directory containing all the experiments
+    backup_dir: directory which will contain the backed up data
+    '''
     try:
         utils.savepaths(pathfile, data_dir, backup_dir)
     except FileNotFoundError as not_found_fail:
@@ -53,6 +62,9 @@ backup_frame.grid(row=0, column=0) # Sets row and col position of widget
 
 # Button to set data directory
 def browse_data_dir():
+    '''
+    User choses a directory using a browse directory dialogue
+    '''
     global data_dir
     data_dir = fd.askdirectory(parent=backup_frame, initialdir=data_dir,
                                title="Select data directory")
@@ -68,6 +80,9 @@ data_dir_display.grid(row=0, column=1)
 
 # Button to set back up directory
 def browse_backup_dir():
+    '''
+    User choses a directory using a browse directory dialogue
+    '''
     global backup_dir
     backup_dir = fd.askdirectory(parent=backup_frame, initialdir=backup_dir,
                                  title="Select back up directory")
@@ -87,6 +102,9 @@ p.grid(row=4, column=1)
 
 # Back up data
 def back_up_data():
+    '''
+    With directories set, back up the data.
+    '''
     keywords = ['Serialnumber', 'Software', 'Firmware', 'Technique']
     ext      = ('.ids','.idf')
     p.start()
@@ -232,6 +250,10 @@ date_display = tk.Label(create_logsheet_frame)
 date_display.grid(row=6, column=1)
 
 def load_experiment_date():
+    '''
+    Load experiment date from the .idf or .ids file
+    in the experiment directory
+    '''
     global exp_date
     global exp_path
     try:
@@ -280,6 +302,10 @@ write_logsheet_button.grid(row=7, column=0)
 
 # Ignore button
 def ignore_experiment():
+    '''
+    Write a `.backupignore` file in the experiment directory.
+    This indicates not to back it up or consider it missing a logsheet.
+    '''
     global exp_path
     response = tkmb.askyesno(title="Ignore experiment?", message="Are you sure you want to ignore directory %s?" % exp_path.get())
     if response:
