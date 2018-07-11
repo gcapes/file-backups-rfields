@@ -226,8 +226,9 @@ date_display.grid(row=6, column=1)
 
 def load_experiment_date():
     global exp_date
+    global exp_path
     try:
-        exp_date.set(log.getdatefromdatafile(data_dir))
+        exp_date.set(log.getdatefromdatafile(exp_path.get()))
         date_display.config(text=exp_date.get())
     except NameError as filenameerror:
         tkmb.showerror(title="Data file not found", message=filenameerror)
@@ -239,14 +240,14 @@ def load_experiment_date():
 
 # Button to write log sheet
 def write_logsheet():
-    global data_dir
+    global exp_path
     global exp_ID
     global gen_ID
     global creator
     global exp_date
 
     try:
-        logsheet = os.path.join(data_dir, 'logsheet.txt')
+        logsheet = os.path.join(exp_path.get(), 'logsheet.txt')
         logsheetinfo = ['Creator: ' + creator.get(), 'Experiment ID: ' + exp_ID.get(),
                         'Date: ' + exp_date.get(), 'General ID: ' + gen_ID.get()]
 
