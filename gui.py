@@ -286,7 +286,7 @@ def ignore_experiment():
 
 
 ignore_experiment_button = tk.Button(create_logsheet_frame, text="Ignore", command=ignore_experiment)
-ignore_experiment_button.grid(row=7, column=2)
+ignore_experiment_button.grid(row=7, column=1)
 
 # Display GUI
 root.mainloop()
