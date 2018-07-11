@@ -143,14 +143,17 @@ def load_experiment_path(data_dir):
     global exp_path
     try:
         missinglogs = os.path.join(data_dir, missing_logsheets_log.get())
-        with open(missinglogs, 'r') as f:
-            for line_num, line in enumerate(f):
-                if line_num == exp_num.get():
-                    exp_path.set(line.strip('\n'))
-                    current_experiment_display.configure(text=exp_path.get())
-                    break
-            if exp_num.get() > line_num:
-                    tkmb.showinfo(title="Complete", message="No more logsheets to process.")
+        if os.path.getsize(missinglogs) > 0:
+            with open(missinglogs, 'r') as f:
+                for line_num, line in enumerate(f):
+                    if line_num == exp_num.get():
+                        exp_path.set(line.strip('\n'))
+                        current_experiment_display.configure(text=exp_path.get())
+                        break
+                if exp_num.get() > line_num:
+                        tkmb.showinfo(title="Complete", message="No more experiments to process.")
+        else:
+            tkmb.showinfo(title="Empty file", message="No missing logsheets to process")
 
     except FileNotFoundError as not_found:
         tkmb.showerror(title="Can't find missing logsheets file", message=not_found)
@@ -165,7 +168,8 @@ def get_first_experiment_path():
     exp_num.set(0)
     # load first experiment
     load_experiment_path(data_dir)
-    load_experiment_date()
+    if exp_path.get():
+        load_experiment_date()
 
 
 # Button to load first missing logsheet
@@ -182,7 +186,8 @@ def get_next_experiment_path():
     exp_num.set(counter)
     # load this experiment
     load_experiment_path(data_dir)
-    load_experiment_date()
+    if exp_path.get():
+        load_experiment_date()
 
 # Load next experiment with missing logsheet
 next_logsheet_button = tk.Button(create_logsheet_frame, text="Get next", command=get_next_experiment_path)
